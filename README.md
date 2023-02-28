@@ -1,10 +1,10 @@
 # Spatial redundancy transformer for self-supervised fluorescence image denoising
 
 <p align="center">
-  <img src="assets/SRDTrans.gif" height=180>
+  <img src="assets/SRDTrans.gif" width='600'>
 </p>
 
-## <div align="center"><b><a href="README.md">English</a> | <a href="README_CN.md">简体中文</a></b></div>
+## <div align="center"><b><a href="README.md">SRDTrans</a></div>
 
 <div align="center">
 
@@ -12,14 +12,22 @@
 
 </div>
 
-## Method
+
+---
+
+
+## ✨ Method
 
   
   <p align="center">
-  <img src="assets/self_super.png" height=180>
+  <img src="assets/self_super.png" width='800'>
   </p>
 
+  + A spatial redundancy denoising transformer (SRDTrans) network is proposed to remove detection noise from fluorescence time-lapse images in a self-supervised manner. We designed a sampling strategy to extract training pairs based on spatial redundancy and orthogonal correlation, which eliminates the dependence on high imaging speed. 
   
+  + To break the performance bottleneck of convolutional neural networks (CNNs) on fluorescence image denoising, we designed a 3D Transformer network to improve the model capability to capture long-range spatiotemporal dependencies and high-resolution features. SRDTrans can overcome the inherent spectral bias of CNNs and restore realistic edges and textures in denoised images instead of bringing over-smooth structures and distorted pixels. 
+  
+  + We demonstrate the state-of-the-art denoising performance of SRDTrans on simulated and experimental data of two-photon calcium imaging and single-molecule localization microscopy. SRDTrans does not contain any assumptions about the imaging process and the sample, thus can be easily extended to a wide range of applications.
 
 
 
@@ -96,43 +104,32 @@ Download the demo data(.tif file) and put it into SRDTrans/datasets/.
 ```
 
 ---
-## ⚡ Demo
+## &#x1F308; Demo
 
   ### 1. STORM Denoising
   <p align="center">
-  <img src="assets/storm_vis.png" height=170>
+  <img src="assets/storm_vis.png" width='800'>
   </p>
 
   ### 2. Localization and reconstruction of STORM
   <p align="center">
-  <img src="assets/storm_rec.png" height=160>
+  <img src="assets/storm_rec.png" width='800'>
   </p>
 
   ### 3. Calcium Denoising at ~30Hz
   <p align="center">
-  <img src="assets/cad_30hz.png" height=120>
+  <img src="assets/cad_30hz.png" width='800'>
   </p>
 
   ### 4. Calcium Denoising at ~0.3Hz
   <p align="center">
-  <img src="assets/cad_0.3hz.png" height=300>
+  <img src="assets/cad_0.3hz.png" width='800'>
   </p>
 
   ### 4. Videos
   
 
 
-
-
-
-## BibTeX
-
-    @InProceedings{wang2021realesrgan,
-        author    = {Xintao Wang and Liangbin Xie and Chao Dong and Ying Shan},
-        title     = {Real-ESRGAN: Training Real-World Blind Super-Resolution with Pure Synthetic Data},
-        booktitle = {International Conference on Computer Vision Workshops (ICCVW)},
-        date      = {2021}
-    }
 
 
 [def]: #-demos-videos
