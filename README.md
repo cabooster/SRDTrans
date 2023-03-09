@@ -102,7 +102,7 @@ You can use scripts in file 'train_SRDTrans.sh' to train models for our paper.
 
 2. Test
 
-  You can use scripts in file 'test_SRDTrans.sh' to train models for our paper.
+  You can use scripts in file 'test_SRDTrans.sh' to test models.
   ```bash
     # Simulated STORM 
     python -u test.py --denoise_model storm --patch_x 128 --patch_t 128 --GPU 0 --ckp_idx 9 --datasets_folder noisy --test_datasize 1000 --datasets_path datasets/ --clean_path datasets/clean/clean.tif
