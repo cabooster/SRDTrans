@@ -71,7 +71,7 @@ Download the demo data(.tif file) and put it into SRDTrans/datasets/.
 
 1. Data preparation 
 
-First, please delete the "__init__.py" file used for occupancy. Then, you can download the demo data(.tif file) and put the noisy data and the clean data into datasets/noisy/ and  datasets/clean/.
+Please delete the "_\_init__.py" file used for occupancy. Then, you can download the demo data(.tif file) and put the noisy data and the clean data into datasets/noisy/ and  datasets/clean/.
 
 2. Train
 
