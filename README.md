@@ -27,7 +27,7 @@
 
 ## 🚩 Paper
 
-This repository is for RCAN introduced in the following paper
+This repository is for SRDTrans introduced in the following paper
 
 "Spatial redundancy transformer for self-supervised fluorescence image denoising" [[arXiv]](ht) 
 
@@ -138,16 +138,16 @@ You can use scripts in file 'train_SRDTrans.sh' to train models for our paper.
   ### 4. Videos
   1. Three-dimensional visualization of large neuronal populations in a 510 × 510 × 548 μm volume (100 planes, 0.3-Hz volume rate). Left, low-SNR raw volume. Right, the same volume denoised with SRDTrans.
   <p align="center">
-    <img src="assets/Supplementary Video_5.gif" width='500'>
+    <img src="assets/Supplementary Video_5.gif" width='800'>
     </p>
   2. Comparison of denoising performance of DeepCAD, CNN, and SRDTrans at ~0.3Hz calcium imaging data.
   <p align="center">
-    <img src="assets/Supplementary Video_4.gif" width='500'>
+    <img src="assets/Supplementary Video_4.gif" width='800'>
     </p>
   2. Validation experiments on synthetic MNIST datasets of different moving speed [0.5,0.5,10] (pixel/s). Faster movement of digits in MNIST means a lager discrepancy gap between adjacent frames. 
 
   <p align="center">
-    <img src="assets/Supplementary Video_3.gif" width='500'>
+    <img src="assets/Supplementary Video_3.gif" width='800'>
     </p>
 
 
