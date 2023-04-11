@@ -64,7 +64,7 @@ This repository is for SRDTrans introduced in the following paper
 |Calcium  | 29.2 G   |  [Zenodo](https://doi.org/10.5281/zenodo.7812603)     |   Simulated calcium imaging data sampled at 30 Hz under different SNR      |
 |Calcium| 5.8 G   |  [Zenodo](https://doi.org/10.5281/zenodo.7812545)     |    SRDTrans dataset: simulated calcium imaging data at different imaging speeds|
 |STORM                    |   48.0 G     |    [Zenodo](https://doi.org/10.5281/zenodo.7812590)    |    SRDTrans dataset: simulated STORM data under different SNR|
-|STORM                    |   23.60 G     |    [Zenodo](https://doi.org/10.5281/zenodo.7813185)    |      SRDTrans dataset: experimental imaging STORM data|
+|STORM                    |   23.6 G     |    [Zenodo](https://doi.org/10.5281/zenodo.7813185)    |      SRDTrans dataset: experimental imaging STORM data|
 
 Download the demo data(.tif file) and put it into SRDTrans/datasets/.
 
@@ -78,9 +78,9 @@ Download the demo data(.tif file) and put it into SRDTrans/datasets/.
 
 You can use scripts in file 'train_SRDTrans.sh' to train models for our paper.
   ```bash
-    # Simulated STORM & Simulated Calcium imaging data at ~30hz
+    # Simulated STORM & Simulated Calcium imaging data at 30hz
     python -u train.py --datasets_folder noisy --datasets_path datasets/ --n_epochs 30 --GPU 0 --train_datasets_size 6000  --patch_x 128 --patch_t 128 --clean_img_path datasets/clean/clean.tif
-    # Simulated Calcium imaging data at ~0.3hz
+    # Simulated Calcium imaging data at 0.3hz
     python -u train.py --datasets_folder noisy --datasets_path datasets/ --n_epochs 30 --GPU 0 --train_datasets_size 3000  --patch_x 128 --patch_t 128 --clean_img_path datasets/clean/clean.tif
   ```
 
@@ -98,9 +98,9 @@ You can use scripts in file 'train_SRDTrans.sh' to train models for our paper.
 
     Download the pretrained model of STORM and put it into pth/storm.
 
-    Download the pretrained model of Calcium imaging data at ~30hz and put it into pth/cad_30hz.
+    Download the pretrained model of Calcium imaging data at 30hz and put it into pth/cad_30hz.
 
-    Download the pretrained model of Calcium imaging data at ~0.3hz and put it into pth/cad_03hz.
+    Download the pretrained model of Calcium imaging data at 0.3hz and put it into pth/cad_03hz.
 
 2. Test
 
@@ -108,9 +108,9 @@ You can use scripts in file 'train_SRDTrans.sh' to train models for our paper.
   ```bash
     # Simulated STORM 
     python -u test.py --denoise_model storm --patch_x 128 --patch_t 128 --GPU 0 --ckp_idx 9 --datasets_folder noisy --test_datasize 1000 --datasets_path datasets/ --clean_path datasets/clean/clean.tif
-    # Simulated Calcium imaging data at ~30hz
+    # Simulated Calcium imaging data at 30hz
     python -u test.py --denoise_model cad_30hz --patch_x 128 --patch_t 128 --GPU 0 --ckp_idx 9 --datasets_folder noisy --test_datasize 1000 --datasets_path datasets/ --clean_path datasets/clean/clean.tif
-    # Simulated Calcium imaging dataat ~0.3hz
+    # Simulated Calcium imaging dataat 0.3hz
     python -u test.py --denoise_model cad_03hz --patch_x 128 --patch_t 128 --GPU 0c --ckp_idx 9 --datasets_folder noisy --test_datasize 1000 --datasets_path datasets/ --clean_path datasets/clean/clean.tif
   ```
 
