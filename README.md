@@ -8,7 +8,7 @@
 
 <div align="center">
 
-✨ [**Method**][def] **|** 🚩 [**Paper**](#-updates) **|** 🔧 [**Install**](#-dependencies-and-installation)  **|** 🎨 [**Data preparation**](docs/CONTRIBUTING.md)**|** 🏰 [**Model Zoo**](docs/model_zoo.md)  **|** 💻 [**Train**](docs/Training.md) **|** ⚡ [**Usage**](#-quick-inference)**|** &#x1F308; [**Demo**]()
+✨ [**Method**](#Method) **|** 🚩 [**Paper**](#Paper) **|** 🔧 [**Install**](#Install)  **|** 🎨 [**Data preparation**](#Data-preparation)  **|** 💻 [**Train**](#Train) **|** 🏰 [**Model Zoo**](#Model-Zoo)**|** ⚡ [**Usage**](#-Quick-Inference)**|** &#x1F308; [**Demo**](#-Demo)
 
 </div>
 
@@ -38,7 +38,7 @@ This repository is for SRDTrans introduced in the following paper
 
 ### Dependencies 
   - Python >= 3.6 
-  - PyTorch >= 1.7
+  - PyTorch >= 1.7 
     
 ### Installation
 
@@ -86,10 +86,11 @@ You can use scripts in file 'train_SRDTrans.sh' to train models for our paper.
 
 
 ## 🏰 Model Zoo
-| Models                            | Modality  |Download | Description                                  |
-| --------------------------------- |:--------- | :---- | :------------------------------------------- |
-| SRDTrans_Calcium                  | Calcium   |  [Drive](https://drive.google.com/drive/folders/19y5gmqoUwEw7rMFhVLHW4ZAe1X6HwzV4?usp=share_link)     | The pretrained model on calcium imaging data.                                            |
-| SRDTrans_STORM                    | STORM     |    [Drive](https://drive.google.com/drive/folders/188rt3adrnVbF7zIxMgg2NRQJKl-e1_Fl?usp=share_link)    | The pretrained model on STORM  data.                                           | 
+| Models                            | Modality  |Download                                  |
+| --------------------------------- |:--------- | :------------------------------------------- |
+| SRDTrans                 | Calcium   |  [Zenodo](https://doi.org/10.5281/zenodo.7818031)                                              |
+| SRDTrans                    | STORM     |    [Zenodo](https://doi.org/10.5281/zenodo.7817710)   
+
 
 
 ## ⚡ Quick Inference
