@@ -46,7 +46,7 @@ This repository is for SRDTrans introduced in the following paper
 1. Clone repo
 
     ```bash
-    git clone https://github.com/Huxiaowan/SRDTrans.git
+    git clone https://github.com/cabooster/SRDTrans.git
     cd SRDTrans
     ```
 
