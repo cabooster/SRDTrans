@@ -107,11 +107,11 @@ You can use scripts in file 'train_SRDTrans.sh' to train models for our paper.
   You can use scripts in file 'test_SRDTrans.sh' to train models for our paper.
   ```bash
     # Simulated STORM 
-    python -u test.py --denoise_model storm --patch_x 128 --patch_t 128 --GPU 0 --ckp_idx 9 --datasets_folder noisy --test_datasize 1000 --datasets_path datasets/ --clean_path datasets/clean/clean.tif
+    python -u test.py --denoise_model storm --patch_x 128 --patch_t 128 --GPU 0 --ckp_idx [best_epoch] --datasets_folder noisy --test_datasize 1000 --datasets_path datasets/ --clean_path datasets/clean/clean.tif
     # Simulated Calcium imaging data at 30hz
-    python -u test.py --denoise_model cad_30hz --patch_x 128 --patch_t 128 --GPU 0 --ckp_idx 9 --datasets_folder noisy --test_datasize 1000 --datasets_path datasets/ --clean_path datasets/clean/clean.tif
+    python -u test.py --denoise_model cad_30hz --patch_x 128 --patch_t 128 --GPU 0 --ckp_idx [best_epoch] --datasets_folder noisy --test_datasize 1000 --datasets_path datasets/ --clean_path datasets/clean/clean.tif
     # Simulated Calcium imaging dataat 0.3hz
-    python -u test.py --denoise_model cad_03hz --patch_x 128 --patch_t 128 --GPU 0c --ckp_idx 9 --datasets_folder noisy --test_datasize 1000 --datasets_path datasets/ --clean_path datasets/clean/clean.tif
+    python -u test.py --denoise_model cad_03hz --patch_x 128 --patch_t 128 --GPU 0 --ckp_idx [best_epoch] --datasets_folder noisy --test_datasize 1000 --datasets_path datasets/ --clean_path datasets/clean/clean.tif
   ```
 
 ---
