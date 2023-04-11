@@ -40,13 +40,13 @@ parser.add_argument('--clean_img_path', type=str, required=True, help="path of c
 
 parser.add_argument('--select_img_num', type=int, default=1000000, help='select the number of images used for training (how many slices)')
 parser.add_argument('--train_datasets_size', type=int, default=4000, help='datasets size for training (how many patches)')
-parser.add_argument('--test_datasize', type=int, default=1000, help='datasets size for test (how many frames)')
+parser.add_argument('--test_datasize', type=int, default=200, help='datasets size for test (how many frames)')
 opt = parser.parse_args()
 os.environ["CUDA_VISIBLE_DEVICES"] = opt.GPU
 
 #############################################################################################################################################
 from SRDTrans import SRDTrans
-from data_process import train_preprocess_lessMemoryMulStacks, trainset, test_preprocess_lessMemoryNoTail_chooseOne, testset, singlebatch_test_save, multibatch_test_save
+from data_process import train_preprocess_lessMemoryMulStacks, trainset, test_preprocess_lessMemoryNoTail_chooseOne, testset_valid, singlebatch_test_save, multibatch_test_save
 from utils import save_yaml_train
 from sampling import *
 
@@ -123,7 +123,7 @@ denoise_generator = SRDTrans(
     img_dim=opt.patch_x,
     img_time=opt.patch_t,
     in_channel=1,
-    embedding_dim=256,
+    embedding_dim=128,
     num_heads=8,
     hidden_dim=128*4,
     window_size=7,
@@ -240,7 +240,7 @@ def valid(pth_index):
     denoise_img = np.zeros(test_noise_img.shape)
 
     global_snr_list = []
-    test_data = testset(test_name_list, test_coordinate_list, test_noise_img, clean_img=clean_img[:opt.test_datasize, :, :])
+    test_data = testset_valid(test_name_list, test_coordinate_list, test_noise_img, clean_img=clean_img[:opt.test_datasize, :, :])
     testloader = DataLoader(test_data, batch_size=opt.batch_size, shuffle=False)
     with torch.no_grad():
         for iteration, (noise_patch, clean_patch, single_coordinate) in enumerate(testloader):
