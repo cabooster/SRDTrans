@@ -10,6 +10,7 @@
 
 ✨ [**Method**](#-Method) **|** 🚩 [**Paper**](#-Paper) **|** 🔧 [**Install**](#-Install)  **|** 🎨 [**Data preparation**](#-Data-preparation)  **|** 💻 [**Train**](#-Train) **|** 🏰 [**Model Zoo**](#-Model-Zoo)**|** ⚡ [**Usage**](#-Quick-Inference)**|** &#x1F308; [**Demo**](#-Demo)
 
+
 </div>
 
 ---
@@ -66,13 +67,14 @@ This repository is for SRDTrans introduced in the following paper
 |STORM                    |   48.0 G     |    [Zenodo](https://doi.org/10.5281/zenodo.7812590)    |    SRDTrans dataset: simulated STORM data under different SNR|
 |STORM                    |   23.6 G     |    [Zenodo](https://doi.org/10.5281/zenodo.7813185)    |      SRDTrans dataset: experimental imaging STORM data|
 
+
 Download the demo data(.tif file) and put it into SRDTrans/datasets/.
 
 ## 💻 Train 
 
 1. Data preparation 
-  
-    Download the demo data(.tif file) and put the noisy data and the clean data into datasets/noisy/ and  datasets/clean/, respectively.
+
+Please delete the "_\_init__.py" file used for occupancy. Then, you can download the demo data(.tif file) and put the noisy data and the clean data into datasets/noisy/ and  datasets/clean/.
 
 2. Train
 
@@ -91,8 +93,6 @@ You can use scripts in file 'train_SRDTrans.sh' to train models for our paper.
 | SRDTrans                 | Calcium   |  [Zenodo](https://doi.org/10.5281/zenodo.7818031)                                              |
 | SRDTrans                    | STORM     |    [Zenodo](https://doi.org/10.5281/zenodo.7817710)   
 
-
-
 ## ⚡ Quick Inference
 1. Pretrained Model
 
@@ -104,7 +104,7 @@ You can use scripts in file 'train_SRDTrans.sh' to train models for our paper.
 
 2. Test
 
-  You can use scripts in file 'test_SRDTrans.sh' to train models for our paper.
+  You can use scripts in file 'test_SRDTrans.sh' to test models.
   ```bash
     # Simulated STORM 
     python -u test.py --denoise_model storm --patch_x 128 --patch_t 128 --GPU 0 --ckp_idx 9 --datasets_folder noisy --test_datasize 1000 --datasets_path datasets/ --clean_path datasets/clean/clean.tif
@@ -151,6 +151,5 @@ You can use scripts in file 'train_SRDTrans.sh' to train models for our paper.
   <p align="center">
     <img src="assets/Supplementary Video_3.gif" width='800'>
     </p>
-
 
 [def]: #-demos-videos
