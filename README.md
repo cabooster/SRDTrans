@@ -59,7 +59,7 @@ This repository is for SRDTrans introduced in the following paper
 
 ## 🎨 Data preparation
 
-| Data                            | Size    |Download |         Description                       |
+| Data               | Size&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   |Download |         Description                       |
 | --------------------------------- |:--------- | :---- | :------------------------------------------- |
 |Calcium  | 29.2 G   |  [Zenodo](https://doi.org/10.5281/zenodo.7812603)     |   Simulated calcium imaging data sampled at 30 Hz under different SNR      |
 |Calcium| 5.8 G   |  [Zenodo](https://doi.org/10.5281/zenodo.7812545)     |    SRDTrans dataset: simulated calcium imaging data at different imaging speeds|
@@ -146,7 +146,7 @@ You can use scripts in file 'train_SRDTrans.sh' to train models for our paper.
   <p align="center">
     <img src="assets/Supplementary Video_4.gif" width='800'>
     </p>
-  2. Validation experiments on synthetic MNIST datasets of different moving speed [0.5,0.5,10] (pixel/s). Faster movement of digits in MNIST means a lager discrepancy gap between adjacent frames. 
+  3. Validation experiments on synthetic MNIST datasets of different moving speed [0.5,0.5,10] (pixel/s). Faster movement of digits in MNIST means a lager discrepancy gap between adjacent frames. 
 
   <p align="center">
     <img src="assets/Supplementary Video_3.gif" width='800'>
