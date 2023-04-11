@@ -8,7 +8,7 @@
 
 <div align="center">
 
-✨ [**Method**](#Method) **|** 🚩 [**Paper**](#Paper) **|** 🔧 [**Install**](#Install)  **|** 🎨 [**Data preparation**](#Data-preparation)  **|** 💻 [**Train**](#Train) **|** 🏰 [**Model Zoo**](#Model-Zoo)**|** ⚡ [**Usage**](#-Quick-Inference)**|** &#x1F308; [**Demo**](#-Demo)
+✨ [**Method**](#-Method) **|** 🚩 [**Paper**](#-Paper) **|** 🔧 [**Install**](#-Install)  **|** 🎨 [**Data preparation**](#-Data-preparation)  **|** 💻 [**Train**](#-Train) **|** 🏰 [**Model Zoo**](#-Model-Zoo)**|** ⚡ [**Usage**](#-Quick-Inference)**|** &#x1F308; [**Demo**](#-Demo)
 
 </div>
 
@@ -59,12 +59,12 @@ This repository is for SRDTrans introduced in the following paper
 
 ## 🎨 Data preparation
 
-| Data                            | Size  |Download |         Description                       |
+| Data                            | Size|Download |         Description                       |
 | --------------------------------- |:--------- | :---- | :------------------------------------------- |
-|Calcium  | 5.44 G   |  [Zenodo](https://doi.org/10.5281/zenodo.7812603)     |   Simulated calcium imaging data sampled at 30 Hz under different SNR      |
-|Calcium| 927.40 M   |  [Zenodo](https://doi.org/10.5281/zenodo.7812545)     |    SRDTrans dataset: simulated calcium imaging data at different imaging speeds|
-|STORM                    |   2.00 G     |    [Zenodo](https://doi.org/10.5281/zenodo.7812590)    |    SRDTrans dataset: simulated STORM data under different SNR|
-|STORM                    |   2.00 G     |    [Zenodo](https://doi.org/10.5281/zenodo.7813185)    |      SRDTrans dataset: experimental imaging STORM data|
+|Calcium  | 29.2 G   |  [Zenodo](https://doi.org/10.5281/zenodo.7812603)     |   Simulated calcium imaging data sampled at 30 Hz under different SNR      |
+|Calcium| 5.8 G   |  [Zenodo](https://doi.org/10.5281/zenodo.7812545)     |    SRDTrans dataset: simulated calcium imaging data at different imaging speeds|
+|STORM                    |   48.0 G     |    [Zenodo](https://doi.org/10.5281/zenodo.7812590)    |    SRDTrans dataset: simulated STORM data under different SNR|
+|STORM                    |   23.60 G     |    [Zenodo](https://doi.org/10.5281/zenodo.7813185)    |      SRDTrans dataset: experimental imaging STORM data|
 
 Download the demo data(.tif file) and put it into SRDTrans/datasets/.
 
