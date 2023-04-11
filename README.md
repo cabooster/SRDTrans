@@ -59,7 +59,7 @@ This repository is for SRDTrans introduced in the following paper
 
 ## 🎨 Data preparation
 
-| Data                            | Size|Download |         Description                       |
+| Data                            | Size    |Download |         Description                       |
 | --------------------------------- |:--------- | :---- | :------------------------------------------- |
 |Calcium  | 29.2 G   |  [Zenodo](https://doi.org/10.5281/zenodo.7812603)     |   Simulated calcium imaging data sampled at 30 Hz under different SNR      |
 |Calcium| 5.8 G   |  [Zenodo](https://doi.org/10.5281/zenodo.7812545)     |    SRDTrans dataset: simulated calcium imaging data at different imaging speeds|
