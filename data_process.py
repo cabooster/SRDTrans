@@ -5,7 +5,6 @@ import random
 import math
 import torch
 from torch.utils.data import Dataset
-import cv2
 from skimage import io
 
 
@@ -42,21 +41,6 @@ def random_transform(input, target):
         target = target[:, :, ::-1]
         target = np.rot90(target, k=3, axes=(1, 2))
     return input, target
-
-def ConvertVideo2Numpy(input_filename):
-    frame_list = []
-    cap = cv2.VideoCapture(input_filename)
-    while (cap.isOpened()):
-        ret, frame = cap.read()
-        if not ret:
-            break
-        frame = frame.transpose(2, 0, 1)
-        frame_list.append(frame[:, np.newaxis, :, :])
-    cap.release()
-    res_video = np.concatenate(frame_list, axis=1)
-    print(res_video.shape)
-    return res_video
-
 
 class Masker():
     """Object for masking and demasking"""
@@ -172,6 +156,30 @@ class trainset(Dataset):
 
 
 class testset(Dataset):
+    def __init__(self,name_list,coordinate_list,noise_img):
+        self.name_list = name_list
+        self.coordinate_list=coordinate_list
+        self.noise_img = noise_img
+
+    def __getitem__(self, index):
+        #fn = self.images[index]
+        single_coordinate = self.coordinate_list[self.name_list[index]]
+        init_h = single_coordinate['init_h']
+        end_h = single_coordinate['end_h']
+        init_w = single_coordinate['init_w']
+        end_w = single_coordinate['end_w']
+        init_s = single_coordinate['init_s']
+        end_s = single_coordinate['end_s']
+        noise_patch = self.noise_img[init_s:end_s, init_h:end_h, init_w:end_w]
+        noise_patch=torch.from_numpy(np.expand_dims(noise_patch, 0))
+        #target = self.target[index]
+        return noise_patch, single_coordinate
+
+    def __len__(self):
+        return len(self.name_list)
+
+
+class testset_valid(Dataset):
     def __init__(self,name_list,coordinate_list,noise_img,clean_img):
         self.name_list = name_list
         self.coordinate_list=coordinate_list
@@ -195,6 +203,7 @@ class testset(Dataset):
 
     def __len__(self):
         return len(self.name_list)
+
 
 def get_gap_t(args, img, stack_num):
     whole_x = img.shape[2]
