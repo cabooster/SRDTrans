@@ -8,39 +8,28 @@ from torch.utils.data import Dataset
 from skimage import io
 
 
-def random_transform(input, target):
+def random_transform(input):
     p_trans = random.randrange(8)  # (64, 128, 128)
     if p_trans == 0:  # no transformation
         input = input
-        target = target
     elif p_trans == 1:  # left rotate 90
         input = np.rot90(input, k=1, axes=(1, 2))
-        target = np.rot90(target, k=1, axes=(1, 2))
     elif p_trans == 2:  # left rotate 180
         input = np.rot90(input, k=2, axes=(1, 2))
-        target = np.rot90(target, k=2, axes=(1, 2))
     elif p_trans == 3:  # left rotate 270
         input = np.rot90(input, k=3, axes=(1, 2))
-        target = np.rot90(target, k=3, axes=(1, 2))
     elif p_trans == 4:  # horizontal flip
         input = input[:, :, ::-1]
-        target = target[:, :, ::-1]
     elif p_trans == 5:  # horizontal flip & left rotate 90
         input = input[:, :, ::-1]
         input = np.rot90(input, k=1, axes=(1, 2))
-        target = target[:, :, ::-1]
-        target = np.rot90(target, k=1, axes=(1, 2))
     elif p_trans == 6:  # horizontal flip & left rotate 180
         input = input[:, :, ::-1]
         input = np.rot90(input, k=2, axes=(1, 2))
-        target = target[:, :, ::-1]
-        target = np.rot90(target, k=2, axes=(1, 2))
     elif p_trans == 7:  # horizontal flip & left rotate 270
         input = input[:, :, ::-1]
         input = np.rot90(input, k=3, axes=(1, 2))
-        target = target[:, :, ::-1]
-        target = np.rot90(target, k=3, axes=(1, 2))
-    return input, target
+    return input
 
 class Masker():
     """Object for masking and demasking"""
@@ -120,14 +109,12 @@ class Denormalize(object):
 class trainset(Dataset):
     def __init__(
             self, name_list, coordinate_list,
-            noise_img_all, stack_index,
-            clean_img
+            noise_img_all, stack_index
     ):
         self.name_list = name_list
         self.coordinate_list = coordinate_list
         self.noise_img_all = noise_img_all
         self.stack_index = stack_index
-        self.clean_im = clean_img
 
     def __getitem__(self, index):
         # fn = self.images[index]
@@ -142,14 +129,12 @@ class trainset(Dataset):
         end_s = single_coordinate['end_s']
         input = noise_img[init_s:end_s, init_h:end_h, init_w:end_w]
 
-        clean_im = self.clean_im[init_s:end_s, init_h:end_h, init_w:end_w]
 
-        input, clean_im = random_transform(input, clean_im)
+        input = random_transform(input)
         
         input = torch.from_numpy(np.expand_dims(input, 0).copy())
 
-        clean_im = torch.from_numpy(np.expand_dims(clean_im, 0).copy())
-        return input, clean_im
+        return input
 
     def __len__(self):
         return len(self.name_list)
@@ -174,32 +159,6 @@ class testset(Dataset):
         noise_patch=torch.from_numpy(np.expand_dims(noise_patch, 0))
         #target = self.target[index]
         return noise_patch, single_coordinate
-
-    def __len__(self):
-        return len(self.name_list)
-
-
-class testset_valid(Dataset):
-    def __init__(self,name_list,coordinate_list,noise_img,clean_img):
-        self.name_list = name_list
-        self.coordinate_list=coordinate_list
-        self.noise_img = noise_img
-        self.clean_im = clean_img
-
-    def __getitem__(self, index):
-        #fn = self.images[index]
-        single_coordinate = self.coordinate_list[self.name_list[index]]
-        init_h = single_coordinate['init_h']
-        end_h = single_coordinate['end_h']
-        init_w = single_coordinate['init_w']
-        end_w = single_coordinate['end_w']
-        init_s = single_coordinate['init_s']
-        end_s = single_coordinate['end_s']
-        noise_patch = self.noise_img[init_s:end_s, init_h:end_h, init_w:end_w]
-        clean_patch = self.clean_im[init_s:end_s, init_h:end_h, init_w:end_w]
-        noise_patch=torch.from_numpy(np.expand_dims(noise_patch, 0))
-        #target = self.target[index]
-        return noise_patch, clean_patch, single_coordinate
 
     def __len__(self):
         return len(self.name_list)

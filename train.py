@@ -36,7 +36,6 @@ parser.add_argument('--datasets_folder', type=str, default='train', help="A fold
 parser.add_argument('--output_dir', type=str, default='./results', help="output directory")
 parser.add_argument('--pth_path', type=str, default='pth', help="pth file root path")
 parser.add_argument('--key_word', type=str, default='', help="pth file root path")
-parser.add_argument('--clean_img_path', type=str, required=True, help="path of clean img")
 
 parser.add_argument('--select_img_num', type=int, default=1000000, help='select the number of images used for training (how many slices)')
 parser.add_argument('--train_datasets_size', type=int, default=4000, help='datasets size for training (how many patches)')
@@ -46,44 +45,9 @@ os.environ["CUDA_VISIBLE_DEVICES"] = opt.GPU
 
 #############################################################################################################################################
 from SRDTrans import SRDTrans
-from data_process import train_preprocess_lessMemoryMulStacks, trainset, test_preprocess_lessMemoryNoTail_chooseOne, testset_valid, singlebatch_test_save, multibatch_test_save
+from data_process import train_preprocess_lessMemoryMulStacks, trainset
 from utils import save_yaml_train
 from sampling import *
-
-
-def cal_snr(noise_img, clean_img):
-    noise_signal = noise_img - clean_img
-    clean_signal = clean_img
-    noise_signal_2 = noise_signal ** 2
-    clean_signal_2 = clean_signal ** 2
-    sum1 = np.sum(clean_signal_2)
-    sum1 = 1e-10 if sum1 == 0 else sum1
-    sum2 = np.sum(noise_signal_2)
-    sum2 = 1e-10 if sum2 == 0 else sum2
-    snrr = 20 * math.log10(math.sqrt(sum1) / math.sqrt(sum2))
-    return snrr
-
-
-def cal_tif_snr(noisy_tif, clean_tif):
-    total_num = clean_tif.shape[0]
-    assert clean_tif.shape[0] == noisy_tif.shape[0], "length of clean and noisy don't match"
-    snr_list = []
-    for idx in range(total_num):
-        snr = cal_snr(noisy_tif[idx], clean_tif[idx])
-        snr_list.append(snr)
-    print("final snr is:", np.mean(snr_list))
-
-
-def cal_tif_snr_list(noisy_tif, clean_tif):
-    noisy_tif = np.squeeze(noisy_tif)
-    clean_tif = np.squeeze(clean_tif)
-    total_num = clean_tif.shape[0]
-    assert clean_tif.shape[0] == noisy_tif.shape[0], "length of clean and noisy don't match"
-    snr_list = []
-    for idx in range(total_num):
-        snr = cal_snr(noisy_tif[idx], clean_tif[idx])
-        snr_list.append(snr)
-    return snr_list
 
 ########################################################################################################################
 # use isotropic patch size by default
@@ -109,8 +73,6 @@ if not os.path.exists(pth_path):
     os.mkdir(pth_path)
 
 train_name_list, train_noise_img, train_coordinate_list, stack_index = train_preprocess_lessMemoryMulStacks(opt)
-test_name_list, test_noise_img, test_coordinate_list = test_preprocess_lessMemoryNoTail_chooseOne(opt, N=0)
-clean_img = tiff.imread(opt.clean_img_path).astype(np.float32)
 
 yaml_name = pth_path+'//para.yaml'
 save_yaml_train(opt, yaml_name)
@@ -159,14 +121,12 @@ time_start=time.time()
 def train_epoch():
     global prev_time
     denoise_generator.train()
-    train_data = trainset(train_name_list, train_coordinate_list, train_noise_img, stack_index, clean_img=clean_img)
+    train_data = trainset(train_name_list, train_coordinate_list, train_noise_img, stack_index)
     trainloader = DataLoader(train_data, batch_size=opt.batch_size, shuffle=True, num_workers=4)
 
-    snrr2clean_list = []
-    snrr2target_list = []
     total_loss_list = []
 
-    for iteration, (noisy, clean) in enumerate(trainloader):
+    for iteration, noisy in enumerate(trainloader):
 
         noisy = noisy.cuda()
         mask1, mask2, mask3 = generate_mask_pair(noisy)
@@ -174,10 +134,8 @@ def train_epoch():
         noisy_sub2 = generate_subimages(noisy, mask2)
         noisy_sub3 = generate_subimages(noisy, mask3)
         
-        clean_sub1 = generate_subimages(clean, mask1)
         
         noisy_output = denoise_generator(noisy_sub1)
-        noisy_target = noisy_sub2
 
         loss2neighbor_1 = 0.5*L1_pixelwise(noisy_output, noisy_sub2) + 0.5*L2_pixelwise(noisy_output, noisy_sub2)
         loss2neighbor_2 = 0.5*L1_pixelwise(noisy_output, noisy_sub3) + 0.5*L2_pixelwise(noisy_output, noisy_sub3)
@@ -194,21 +152,12 @@ def train_epoch():
         time_left = datetime.timedelta(seconds=int(batches_left * (time.time() - prev_time)))
         prev_time = time.time()
 
-        target_numpy = noisy_target.cpu().detach().numpy().astype(np.float32)
-        output_numpy = noisy_output.cpu().detach().numpy().astype(np.float32)
-        clean_numpy = clean_sub1.cpu().detach().numpy().astype(np.float32)
-        snrr2target = cal_snr(output_numpy[0:opt.patch_t, :, :], target_numpy[0:opt.patch_t, :, :])
-        snrr2clean = cal_snr(output_numpy[0:opt.patch_t, :, :], clean_numpy[0:opt.patch_t, :, :])
-
-        snrr2clean_list.append(snrr2clean)
-        snrr2target_list.append(snrr2target)
-
         total_loss_list.append(Total_loss.item())
 
         if iteration % 1 == 0:
             time_end = time.time()
             print(
-                '\r[Epoch %d/%d] [Batch %d/%d] [Total loss: %.2f] [ETA: %s] [Time cost: %.2d s] [SNR2target: %.2f dB] [SNR2clean: %.2f dB] '
+                '\r[Epoch %d/%d] [Batch %d/%d] [Total loss: %.2f] [ETA: %s] [Time cost: %.2d s] '
                 % (
                     epoch + 1,
                     opt.n_epochs,
@@ -216,9 +165,7 @@ def train_epoch():
                     len(trainloader),
                     np.mean(total_loss_list),
                     time_left,
-                    time_end - time_start,
-                    np.mean(snrr2target_list),
-                    np.mean(snrr2clean_list)
+                    time_end - time_start
                 ), end=' ')
 
         if (iteration + 1) % len(trainloader) == 0:
@@ -235,69 +182,5 @@ def train_epoch():
                 torch.save(denoise_generator.state_dict(), model_save_name)  # not parallel
 
 
-def valid(pth_index):
-    denoise_generator.eval()
-    denoise_img = np.zeros(test_noise_img.shape)
-
-    global_snr_list = []
-    test_data = testset_valid(test_name_list, test_coordinate_list, test_noise_img, clean_img=clean_img[:opt.test_datasize, :, :])
-    testloader = DataLoader(test_data, batch_size=opt.batch_size, shuffle=False)
-    with torch.no_grad():
-        for iteration, (noise_patch, clean_patch, single_coordinate) in enumerate(testloader):
-            noise_patch = noise_patch.cuda()
-            real_A = noise_patch
-            real_A = Variable(real_A)
-            fake_B = denoise_generator(real_A)
-
-            preditc_numpy = fake_B.cpu().detach().numpy().astype(np.float32)
-            clean_numpy = clean_patch.detach().numpy().astype(np.float32)
-            global_snr_list += cal_tif_snr_list(preditc_numpy, clean_numpy)
-
-            ################################################################################################################
-            # Determine approximate time left
-            batches_done = iteration
-            batches_left = 1 * len(testloader) - batches_done
-            ################################################################################################################
-            if iteration % 1 == 0:
-                print(
-                    '\r[Model %d] [Patch %d/%d] [SNR: %.6f]     '
-                    % (
-                        pth_index,
-                        iteration + 1,
-                        len(testloader),
-                        np.mean(global_snr_list)
-                    ), end=' ')
-
-            if (iteration + 1) % len(testloader) == 0:
-                print('\n', end=' ')
-            ################################################################################################################
-            output_image = np.squeeze(fake_B.cpu().detach().numpy())
-            raw_image = np.squeeze(real_A.cpu().detach().numpy())
-            if (output_image.ndim == 3):
-                turn = 1
-            else:
-                turn = output_image.shape[0]
-            # print(turn)
-            if (turn > 1):
-                for id in range(turn):
-                    # print('shape of output_image -----> ',output_image.shape)
-                    aaaa, bbbb, stack_start_w, stack_end_w, stack_start_h, stack_end_h, stack_start_s, stack_end_s = multibatch_test_save(
-                        single_coordinate, id, output_image, raw_image)
-                    denoise_img[stack_start_s:stack_end_s, stack_start_h:stack_end_h, stack_start_w:stack_end_w] \
-                        = aaaa * (np.sum(bbbb) / np.sum(aaaa)) ** 0.5
-            else:
-                aaaa, bbbb, stack_start_w, stack_end_w, stack_start_h, stack_end_h, stack_start_s, stack_end_s = singlebatch_test_save(
-                    single_coordinate, output_image, raw_image)
-                denoise_img[stack_start_s:stack_end_s, stack_start_h:stack_end_h, stack_start_w:stack_end_w] \
-                    = aaaa * (np.sum(bbbb) / np.sum(aaaa)) ** 0.5
-
-        # del noise_img
-        output_img = denoise_img.squeeze().astype(np.float32) * opt.scale_factor
-        del denoise_img
-        output_img = output_img.astype('int16')
-        cal_tif_snr(output_img, clean_img[:opt.test_datasize, :, :])
-
-
 for epoch in range(0, opt.n_epochs):
     train_epoch()
-    valid(epoch)
