@@ -22,7 +22,7 @@
 <img src="assets/self_super.png" width='800'>
 </p>
 
-- The spatial redundancy denoising transformer (SRDTrans) network is proposed to remove detection noise from fluorescence time-lapse images in a self-supervised manner. We designed a sampling strategy to extract training pairs based on spatial redundancy and orthogonal correlation. This scheme has no dependence on the similarity between two adjacent frames, so our SRDTrans is applicable to very fast dynamics and extremely low imaging speed, which is totally complementary to our previously proposed [DeepCAD](https://www.nature.com/articles/s41592-021-01225-0) and [DeepCAD-RT](https://www.nature.com/articles/s41587-022-01450-8). We demonstrate the state-of-the-art denoising performance of SRDTrans on simulated and experimental data of two-photon calcium imaging and single-molecule localization microscopy. SRDTrans does not contain any assumptions about the imaging process and the sample, thus can be easily extended to a wide range of applications.
+-  We provide a spatial redundancy denoising transformer (SRDTrans) to remove noise from fluorescence time-lapse images in a self-supervised manner. First, a sampling strategy based on spatial redundancy is proposed to extract adjacent orthogonal training pairs, which eliminates the dependence on high imaging speed. SRDTrans is totally complementary to our previously proposed [DeepCAD](https://www.nature.com/articles/s41592-021-01225-0) and [DeepCAD-RT](https://www.nature.com/articles/s41587-022-01450-8). Secondly, to break the performance bottleneck of convolutional neural networks (CNNs), we designed a lightweight spatiotemporal transformer architecture to capture long-range dependencies and high-resolution features at a low computational cost. SRDTrans can overcome the inherent spectral bias of CNNs and restore high-frequency information without producing over-smoothed structures and distorted fluorescence traces. Finally, we demonstrate the state-of-the-art denoising performance of SRDTrans on single-molecule localization microscopy and two-photon volumetric calcium imaging. SRDTrans does not contain any assumptions about the imaging process and the sample, thus can be easily extended to a wide range of imaging modalities and biological applications.
 
 
 
@@ -43,7 +43,7 @@ This repository is for SRDTrans introduced in the following paper
     
 ### Installation
 
-1. Clone repo
+1. Clone repository
 
     ```bash
     git clone https://github.com/cabooster/SRDTrans.git
@@ -60,12 +60,12 @@ This repository is for SRDTrans introduced in the following paper
 
 ## 🎨 Data preparation
 
-| Data               | Size&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   |Download |         Description                       |
-| --------------------------------- |:--------- | :---- | :------------------------------------------- |
-|Calcium  | 29.2 G   |  [Zenodo](https://doi.org/10.5281/zenodo.7812603)     |   Simulated calcium imaging data sampled at 30 Hz under different SNR      |
-|Calcium| 5.8 G   |  [Zenodo](https://doi.org/10.5281/zenodo.7812545)     |    SRDTrans dataset: simulated calcium imaging data at different imaging speeds|
-|STORM                    |   48.0 G     |    [Zenodo](https://doi.org/10.5281/zenodo.7812590)    |    SRDTrans dataset: simulated STORM data under different SNR|
-|STORM                    |   23.6 G     |    [Zenodo](https://doi.org/10.5281/zenodo.7813185)    |      SRDTrans dataset: experimental imaging STORM data|
+| Data&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| Pixel size&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| Frame rate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Size&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   |Download |         Description                       |
+| ---------------------------------------------- |:--------- | :---- | :---- | :---- | :------------------------------------------- |
+|Calcium imaging |1.02 μm|30 Hz| 29.2 G   |  [Zenodo](https://doi.org/10.5281/zenodo.7812603)     |   Simulated calcium imaging data under different SNR      |
+|Calcium imaging| 1.02 μm|0.1 Hz, 0.3Hz, 1 Hz, 3 Hz, 10 Hz, and 30 Hz|5.8 G   |  [Zenodo](https://doi.org/10.5281/zenodo.7812545)     |    SRDTrans dataset: simulated calcium imaging data at different imaging speeds|
+|STORM                    |30 nm |200 Hz|  48.0 G     |    [Zenodo](https://doi.org/10.5281/zenodo.7812590)    |    SRDTrans dataset: simulated STORM data under different SNR|
+|STORM                    | 43 nm|200 Hz|  23.6 G     |    [Zenodo](https://doi.org/10.5281/zenodo.7813185)    |      SRDTrans dataset: experimental imaging STORM data|
 
 
 Download the demo data(.tif file) and put it into SRDTrans/datasets/.
@@ -89,7 +89,7 @@ Please delete the "_\_init__.py" file used for occupancy. Then, you can download
 ## 🏰 Model Zoo
 | Models                            | Modality  |Download                                  |
 | --------------------------------- |:--------- | :------------------------------------------- |
-| SRDTrans                 | Calcium   |  [Zenodo](https://doi.org/10.5281/zenodo.7818031)                                              |
+| SRDTrans                 | Calcium imaging  |  [Zenodo](https://doi.org/10.5281/zenodo.7818031)                                              |
 | SRDTrans                    | STORM     |    [Zenodo](https://doi.org/10.5281/zenodo.7817710)   
 
 ## ⚡ Quick Inference
@@ -121,12 +121,12 @@ Please delete the "_\_init__.py" file used for occupancy. Then, you can download
   <img src="assets/storm_rec.png" width='800'>
   </p>
 
-  ### 3. Calcium Denoising at ~30Hz
+  ### 3. Calcium Denoising at 30Hz
   <p align="center">
   <img src="assets/cad_30hz.png" width='800'>
   </p>
 
-  ### 4. Calcium Denoising at ~0.3Hz
+  ### 4. Calcium Denoising at 0.3Hz
   <p align="center">
   <img src="assets/cad_0.3hz.png" width='800'>
   </p>
@@ -136,7 +136,7 @@ Please delete the "_\_init__.py" file used for occupancy. Then, you can download
   <p align="center">
     <img src="assets/Supplementary Video_5.gif" width='800'>
     </p>
-  2. Comparison of denoising performance of DeepCAD, CNN, and SRDTrans at ~0.3Hz calcium imaging data.
+  2. Comparison of denoising performance of DeepCAD, CNN, and SRDTrans at 0.3Hz calcium imaging data.
   <p align="center">
     <img src="assets/Supplementary Video_4.gif" width='800'>
     </p>
