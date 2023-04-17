@@ -67,14 +67,7 @@ This repository is for SRDTrans introduced in the following paper
 |Calcium imaging| 1.02 μm|0.1 Hz, 0.3Hz, 1 Hz, 3 Hz, 10 Hz, and 30 Hz|5.8 G   |  [Zenodo](https://doi.org/10.5281/zenodo.7812545)     |    SRDTrans dataset: simulated calcium imaging data at different imaging speeds|
 |STORM                    |30 nm |200 Hz|  48.0 G     |    [Zenodo](https://doi.org/10.5281/zenodo.7812590)    |    SRDTrans dataset: simulated STORM data under different SNR|
 |STORM                    | 43 nm|200 Hz|  23.6 G     |    [Zenodo](https://doi.org/10.5281/zenodo.7813185)    |      SRDTrans dataset: experimental imaging STORM data|
-=======
-| Data               | Size&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   |Download |         Description                       |
-| --------------------------------- |:--------- | :---- | :------------------------------------------- |
-|Calcium imaging  | 29.2 G |  [Zenodo](https://doi.org/10.5281/zenodo.7812603)     |   Simulated calcium imaging data sampled at 30 Hz under different SNR      |
-|Calcium imaging| 5.8 G    |  [Zenodo](https://doi.org/10.5281/zenodo.7812545)     |    SRDTrans dataset: simulated calcium imaging data at different imaging speeds|
-|STORM imaging             |   48.0 G     |    [Zenodo](https://doi.org/10.5281/zenodo.7812590)    |    SRDTrans dataset: simulated STORM data under different SNR|
-|STORM imaging             |   23.6 G     |    [Zenodo](https://doi.org/10.5281/zenodo.7813185)    |      SRDTrans dataset: experimental imaging STORM data|
->>>>>>> 13aa1ff86a6e3f3347e8ead2b670f2eb6fdae433
+
 
 
 Download the demo data(.tif file) and put it into SRDTrans/datasets/.
