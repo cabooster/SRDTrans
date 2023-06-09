@@ -133,11 +133,11 @@ Please delete the "_\_init__.py" file used for occupancy. Then, you can download
   </p>
 
   ### 4. Videos
-  1. Three-dimensional visualization of large neuronal populations in a 510 × 510 × 548 μm volume (100 planes, 0.3-Hz volume rate). Left, low-SNR raw volume. Right, the same volume denoised with SRDTrans.
+  1. 3D visualization of large neuronal populations in a 510×510×548 μm volume (0.3-Hz volume rate). Left, low-SNR raw volume. Right, the same volume denoised with SRDTrans.
   <p align="center">
     <img src="assets/Supplementary Video_5.gif" width='800'>
     </p>
-  2. Comparison of denoising performance of DeepCAD, CNN, and SRDTrans at 0.3Hz calcium imaging data.
+  2. Comparing the denoising performance of DeepCAD, CNN, and SRDTrans at 0.3Hz calcium imaging data.
   <p align="center">
     <img src="assets/Supplementary Video_4.gif" width='800'>
     </p>
