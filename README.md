@@ -112,7 +112,7 @@ Please delete the "_\_init__.py" file used for occupancy. Then, you can download
 ---
 ## &#x1F308; Demo
 
-  ### 1. STORM Denoising
+  ### 1. STORM denoising
   <p align="center">
   <img src="assets/storm_vis.png" width='800'>
   </p>
@@ -122,12 +122,12 @@ Please delete the "_\_init__.py" file used for occupancy. Then, you can download
   <img src="assets/storm_rec.png" width='800'>
   </p>
 
-  ### 3. Calcium Denoising at 30Hz
+  ### 3. Calcium imaging denoising at 30 Hz
   <p align="center">
   <img src="assets/cad_30hz.png" width='800'>
   </p>
 
-  ### 4. Calcium Denoising at 0.3Hz
+  ### 4. Calcium imaging denoising at 0.3 Hz
   <p align="center">
   <img src="assets/cad_0.3hz.png" width='800'>
   </p>
