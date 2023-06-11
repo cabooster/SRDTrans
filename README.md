@@ -64,8 +64,8 @@ This repository is for SRDTrans introduced in the following paper
 | ---------------------------------------------- |:--------- | :---- | :---- | :---- | :------------------------------------------- |
 |Calcium imaging |1.02 μm|30 Hz| 29.2 G   |  [Zenodo](https://doi.org/10.5281/zenodo.7812603)     |   Simulated calcium imaging data under different SNR      |
 |Calcium imaging| 1.02 μm|0.1 Hz, 0.3Hz, 1 Hz, 3 Hz, 10 Hz, and 30 Hz|5.8 G   |  [Zenodo](https://doi.org/10.5281/zenodo.7812545)     |    SRDTrans dataset: simulated calcium imaging data at different imaging speeds|
-|STORM                    |30 nm |200 Hz|  48.0 G     |    [Zenodo](https://doi.org/10.5281/zenodo.7812590)    |    SRDTrans dataset: simulated STORM data under different SNR|
-|STORM                    | 43 nm|200 Hz|  23.6 G     |    [Zenodo](https://doi.org/10.5281/zenodo.7813185)    |      SRDTrans dataset: experimental imaging STORM data|
+|SMLM                    |30 nm |200 Hz|  48.0 G     |    [Zenodo](https://doi.org/10.5281/zenodo.7812590)    |    SRDTrans dataset: simulated SMLM data under different SNR|
+|SMLM                    | 43 nm|200 Hz|  23.6 G     |    [Zenodo](https://doi.org/10.5281/zenodo.7813185)    |      SRDTrans dataset: experimental imaging SMLM data|
 
 
 
@@ -80,7 +80,7 @@ Please delete the "_\_init__.py" file used for occupancy. Then, you can download
 2. Train
 
   ```bash
-    # Simulated STORM & Simulated Calcium imaging data at 30hz
+    # Simulated SMLM & Simulated Calcium imaging data at 30hz
     python -u train.py --datasets_folder noisy --datasets_path datasets/ --n_epochs 30 --GPU 0 --train_datasets_size 6000  --patch_x 128 --patch_t 128 
     # Simulated Calcium imaging data at 0.3hz
     python -u train.py --datasets_folder noisy --datasets_path datasets/ --n_epochs 30 --GPU 0 --train_datasets_size 3000  --patch_x 128 --patch_t 128 
@@ -91,7 +91,7 @@ Please delete the "_\_init__.py" file used for occupancy. Then, you can download
 | Models                            | Modality  |Download                                  |
 | --------------------------------- |:--------- | :------------------------------------------- |
 | SRDTrans                 | Calcium imaging  |  [Zenodo](https://doi.org/10.5281/zenodo.7818031)                                              |
-| SRDTrans                    | STORM     |    [Zenodo](https://doi.org/10.5281/zenodo.7817710)   
+| SRDTrans                    | SMLM     |    [Zenodo](https://doi.org/10.5281/zenodo.7817710)   
 
 ## ⚡ Quick Inference
 1. Pretrained model
@@ -112,12 +112,12 @@ Please delete the "_\_init__.py" file used for occupancy. Then, you can download
 ---
 ## &#x1F308; Demo
 
-  ### 1. STORM denoising
+  ### 1. SMLM denoising
   <p align="center">
   <img src="assets/storm_vis.png" width='800'>
   </p>
 
-  ### 2. Localization and reconstruction of STORM
+  ### 2. Localization and reconstruction of SMLM
   <p align="center">
   <img src="assets/storm_rec.png" width='800'>
   </p>
@@ -133,18 +133,16 @@ Please delete the "_\_init__.py" file used for occupancy. Then, you can download
   </p>
 
   ### 4. Videos
-  1. 3D visualization of large neuronal populations in a 510×510×548 μm volume (0.3-Hz volume rate). Left, low-SNR raw volume. Right, the same volume denoised with SRDTrans.
-  <p align="center">
-    <img src="assets/Supplementary Video_5.gif" width='800'>
-    </p>
-  2. Comparing the denoising performance of DeepCAD, CNN, and SRDTrans at 0.3Hz calcium imaging data.
-  <p align="center">
-    <img src="assets/Supplementary Video_4.gif" width='800'>
-    </p>
-  3. Validation experiments on synthetic MNIST datasets of different moving speed [0.5,0.5,10] (pixel/s). Faster movement of digits in MNIST means a lager discrepancy gap between adjacent frames. 
 
-  <p align="center">
-    <img src="assets/Supplementary Video_3.gif" width='800'>
-    </p>
+  1. SRDTrans enhances large-scale volumetric calcium imaging in the mouse cortex.
+
+  [![IMAGE ALT TEXT](assets/v1_png.png)](https://youtu.be/0IUB8IRyIAM "Video Title")
+
+  2. The denoising performance of different methods on calcium imaging data sampled at 0.3 Hz.
+
+  [![IMAGE ALT TEXT](assets/v2_png.png)](https://youtu.be/4p7y57EMY14 "Video Title")
+  3. Comparing the performance of DeepCAD and SRDTrans on fast-moving objects. 
+
+  [![IMAGE ALT TEXT](assets/v3_png.png)](https://youtu.be/UpTXmd35Xxs "Video Title")
 
 [def]: #-demos-videos
