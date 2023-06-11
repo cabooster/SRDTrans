@@ -17,13 +17,13 @@ from tqdm import tqdm
 
 #############################################################################################################################################
 parser = argparse.ArgumentParser()
-parser.add_argument("--n_epochs", type=int, default=100, help="number of training epochs")
+parser.add_argument("--n_epochs", type=int, default=30, help="number of training epochs")
 parser.add_argument('--GPU', type=str, default='0,1', help="the index of GPU you will use for computation")
 
-parser.add_argument('--patch_x', type=int, default=150,
+parser.add_argument('--patch_x', type=int, default=128,
                     help="the width of 3D patches (patch size in x, also in y and t)")
-parser.add_argument('--patch_t', type=int, default=150, help="the width of 3D patches (patch size in t)")
-parser.add_argument('--overlap_factor', type=float, default=0.2, help="the overlap factor between two adjacent patches")
+parser.add_argument('--patch_t', type=int, default=128, help="the width of 3D patches (patch size in t)")
+parser.add_argument('--overlap_factor', type=float, default=0.5, help="the overlap factor between two adjacent patches")
 
 parser.add_argument('--lr', type=float, default=0.00005, help='initial learning rate')
 parser.add_argument("--b1", type=float, default=0.5, help="Adam: bata1")

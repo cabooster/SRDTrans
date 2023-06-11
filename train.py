@@ -16,11 +16,11 @@ import random
 
 #############################################################################################################################################
 parser = argparse.ArgumentParser()
-parser.add_argument("--n_epochs", type=int, default=40, help="number of training epochs")
-parser.add_argument('--GPU', type=str, default='0,1', help="the index of GPU you will use for computation (e.g. '0', '0,1', '0,1,2')")
+parser.add_argument("--n_epochs", type=int, default=30, help="number of training epochs")
+parser.add_argument('--GPU', type=str, default='0', help="the index of GPU you will use for computation (e.g. '0', '0,1', '0,1,2')")
 
-parser.add_argument('--patch_x', type=int, default=150, help="the width of 3D patches (patch size in x)")
-parser.add_argument('--patch_t', type=int, default=150, help="the width of 3D patches (patch size in t)")
+parser.add_argument('--patch_x', type=int, default=128, help="the width of 3D patches (patch size in x)")
+parser.add_argument('--patch_t', type=int, default=128, help="the width of 3D patches (patch size in t)")
 parser.add_argument('--overlap_factor', type=float, default=0.5, help="the overlap factor between two adjacent patches")
 
 parser.add_argument('--batch_size', type=int, default=1, help="the batch_size)")
@@ -38,7 +38,7 @@ parser.add_argument('--pth_path', type=str, default='pth', help="pth file root p
 parser.add_argument('--key_word', type=str, default='', help="pth file root path")
 
 parser.add_argument('--select_img_num', type=int, default=1000000, help='select the number of images used for training (how many slices)')
-parser.add_argument('--train_datasets_size', type=int, default=4000, help='datasets size for training (how many patches)')
+parser.add_argument('--train_datasets_size', type=int, default=6000, help='datasets size for training (how many patches)')
 parser.add_argument('--test_datasize', type=int, default=200, help='datasets size for test (how many frames)')
 opt = parser.parse_args()
 os.environ["CUDA_VISIBLE_DEVICES"] = opt.GPU

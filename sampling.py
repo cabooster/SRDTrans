@@ -1,7 +1,6 @@
 import torch
 from einops import rearrange
 import numpy as np
-import unfoldNd
 
 operation_seed_counter = 0
 
