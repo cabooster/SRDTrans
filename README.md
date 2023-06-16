@@ -133,7 +133,7 @@ Please delete the "_\_init__.py" file used for occupancy. Then, you can download
   </p>
 
   ### 4. Videos
-  You can click on the picture to play the video.
+  You can click on the pictures to play the videos.
   1. SRDTrans enhances large-scale volumetric calcium imaging in the mouse cortex.
 
   [![IMAGE ALT TEXT](assets/v1_png.png)](https://youtu.be/0IUB8IRyIAM "Video Title")
