@@ -136,13 +136,13 @@ Please delete the "_\_init__.py" file used for occupancy. Then, you can download
   You can click on the pictures to play the videos.
   1. SRDTrans enhances large-scale volumetric calcium imaging in the mouse cortex.
 
-  [![IMAGE ALT TEXT](assets/v1_png.png)](https://youtu.be/0IUB8IRyIAM "Video Title")
+  [![IMAGE ALT TEXT](assets/v1_png.png)](https://youtu.be/0IUB8IRyIAM "Please click")
 
   2. The denoising performance of different methods on calcium imaging data sampled at 0.3 Hz.
 
-  [![IMAGE ALT TEXT](assets/v2_png.png)](https://youtu.be/4p7y57EMY14 "Video Title")
+  [![IMAGE ALT TEXT](assets/v2_png.png)](https://youtu.be/4p7y57EMY14 "Please click")
   3. Comparing the performance of DeepCAD and SRDTrans on fast-moving objects. 
 
-  [![IMAGE ALT TEXT](assets/v3_png.png)](https://youtu.be/UpTXmd35Xxs "Video Title")
+  [![IMAGE ALT TEXT](assets/v3_png.png)](https://youtu.be/UpTXmd35Xxs "Please click")
 
 [def]: #-demos-videos
