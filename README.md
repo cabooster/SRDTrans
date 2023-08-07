@@ -1,4 +1,4 @@
-# Spatial redundancy transformer for self-supervised fluorescence image denoising
+# SRDTrans: Spatial redundancy transformer for self-supervised fluorescence image denoising
 
 <p align="center">
   <img src="assets/SRDTrans.gif" width='600'>
@@ -16,7 +16,7 @@
 ---
 
 
-## ✨ Method
+## ✨ Method overview
 
 <p align="center">
 <img src="assets/self_super.png" width='800'>
@@ -28,11 +28,9 @@
 
 ## 🚩 Paper
 
-This repository is for SRDTrans introduced in the following paper
+This repository is for SRDTrans introduced in the following paper:
 
-"Spatial redundancy transformer for self-supervised fluorescence image denoising" [[biorRXiv]](https://www.biorxiv.org/content/10.1101/2023.06.01.543361v1) 
-
-
+[Xinyang Li, Xiaowan Hu, Xingye Chen, et al. "Spatial redundancy transformer for self-supervised fluorescence image denoising." bioRxiv (2023)](https://www.biorxiv.org/content/10.1101/2023.06.01.543361v1) 
 
 
 ## 🔧 Install
@@ -60,7 +58,16 @@ This repository is for SRDTrans introduced in the following paper
     $ pip install tifffile einops timm scikit-image
     ```
 
-## 🎨 Data preparation
+
+Download the demo data(.tif file) and put it into SRDTrans/datasets/.
+
+## 💻 Train 
+
+1. Prepare data  
+
+You can download one of the demo data (.tif file) we achieved and put the noisy data into datasets/noisy/.
+
+### 🎨 Data preparation
 
 | Data&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| Pixel&nbsp;size&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| Frame rate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| Size&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   |Download |         Description                       |
 | ---------------------------------------------- |:--------- | :---- | :---- | :---- | :------------------------------------------- |
@@ -70,16 +77,7 @@ This repository is for SRDTrans introduced in the following paper
 |SMLM                    | 43 nm|200 Hz|  23.6 G     |    [Zenodo](https://doi.org/10.5281/zenodo.7813185)    |      SRDTrans dataset: experimental imaging SMLM data|
 
 
-
-Download the demo data(.tif file) and put it into SRDTrans/datasets/.
-
-## 💻 Train 
-
-1. Data preparation 
-
-Please delete the "_\_init__.py" file used for occupancy. Then, you can download the demo data(.tif file) and put the noisy data into datasets/noisy/.
-
-2. Train
+2. Start training
 
   ```bash
     # Simulated SMLM & Simulated Calcium imaging data at 30hz
@@ -96,9 +94,9 @@ Please delete the "_\_init__.py" file used for occupancy. Then, you can download
 | SRDTrans                    | SMLM     |    [Zenodo](https://doi.org/10.5281/zenodo.7817710)   
 
 ## ⚡ Quick Inference
-1. Pretrained model
+1. Pre-trained model
 
-    Download the pretrained model
+    Download the pre-trained model
 
 2. Data preparation 
 
