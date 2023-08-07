@@ -43,11 +43,12 @@ This repository is for SRDTrans introduced in the following paper
     
 ### Installation
 
-1. Clone repository
+1. Clone the repository and delete placeholder files.
 
     ```bash
     git clone https://github.com/cabooster/SRDTrans.git
     cd SRDTrans
+    rm datasets/clean/__init__.py datasets/noisy/__init__.py pth/__init__.py log/__init__.py
     ```
 
 1. Install dependent packages
