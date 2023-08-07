@@ -51,12 +51,13 @@ This repository is for SRDTrans introduced in the following paper
     rm datasets/clean/__init__.py datasets/noisy/__init__.py pth/__init__.py log/__init__.py
     ```
 
-1. Install dependent packages
+2. Create a virtual environment and install PyTorch and other dependencies. In the 3rd step, please select the correct Pytorch version that matches your CUDA version from [https://pytorch.org/get-started/previous-versions/](https://pytorch.org/get-started/previous-versions/). 
 
     ```bash
     $ conda create -n srdtrans python=3.6
     $ conda activate srdtrans
-    $ pip install -r requirements.txt
+    $ pip install torch==1.8.0+cu111 torchvision==0.9.0+cu111 torchaudio==0.8.0 -f https://download.pytorch.org/whl/torch_stable.html
+    $ pip install tifffile einops timm scikit-image
     ```
 
 ## 🎨 Data preparation
