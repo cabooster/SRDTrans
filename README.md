@@ -8,7 +8,6 @@
 
 ✨ [**Method**](#-Method) **|** 🚩 [**Paper**](#-Paper) **|** 🔧 [**Install**](#-Install)  **|** 🎨 [**Datasets**](#-Datasets)  **|** 💻 [**Training**](#-Training) **|** 🏰 [**Model Zoo**](#-Model-Zoo)**|** ⚡ [**Inference**](#-Inference)**|** &#x1F308; [**Results**](#-Results)
 
-
 </div>
 
 ---
@@ -20,8 +19,7 @@
 <img src="assets/self_super.png" width='800'>
 </p>
 
--  We provide a spatial redundancy denoising transformer (SRDTrans) to remove noise from fluorescence time-lapse images in a self-supervised manner. First, a sampling strategy based on spatial redundancy is proposed to extract adjacent orthogonal training pairs, which eliminates the dependence on high imaging speed. SRDTrans is complementary to our previously proposed [DeepCAD](https://www.nature.com/articles/s41592-021-01225-0) and [DeepCAD-RT](https://www.nature.com/articles/s41587-022-01450-8). Secondly, to break the performance bottleneck of convolutional neural networks (CNNs), we designed a lightweight spatiotemporal transformer architecture to capture long-range dependencies and high-resolution features at a low computational cost. SRDTrans can overcome the inherent spectral bias of CNNs and restore high-frequency information without producing over-smoothed structures and distorted fluorescence traces. Finally, we demonstrate the state-of-the-art denoising performance of SRDTrans on single-molecule localization microscopy and two-photon volumetric calcium imaging. SRDTrans does not contain any assumptions about the imaging process and the sample, thus can be easily extended to a wide range of imaging modalities and biological applications.
-
+We provide a spatial redundancy denoising transformer (SRDTrans) to remove noise from fluorescence images in a self-supervised manner. **First**, a sampling strategy based on spatial redundancy is proposed to extract adjacent orthogonal training pairs, which eliminates the dependence on high imaging speed. SRDTrans is complementary to our previously proposed [DeepCAD](https://www.nature.com/articles/s41592-021-01225-0) and [DeepCAD-RT](https://www.nature.com/articles/s41587-022-01450-8). **Second**, to break the performance bottleneck of convolutional neural networks (CNNs), we designed a lightweight spatiotemporal transformer architecture to capture long-range dependencies and high-resolution features at a low computational cost. SRDTrans can overcome the inherent spectral bias of CNNs and restore high-frequency information without producing over-smoothed structures and distorted fluorescence traces. **Finally**, we demonstrate the state-of-the-art denoising performance of SRDTrans on single-molecule localization microscopy (SMLM) and two-photon volumetric calcium imaging. SRDTrans does not contain any assumptions about the imaging process and the sample, thus can be easily extended to a wide range of imaging modalities and biological applications.
 
 
 ## 🚩 Paper
@@ -57,13 +55,11 @@ This repository is for SRDTrans introduced in the following paper:
     ```
 
 
-Download the demo data(.tif file) and put it into SRDTrans/datasets/.
-
 ## 💻 Training 
 
-### 1. Prepare data  
+### 1. Prepare the data  
 
-You can download one of the demo data (.tif file) we achieved and put the low-SNR data into datasets/noisy/.
+You can use your own data or download one of the demo data (.tif file), and put the low-SNR data into datasets/noisy/.
 
 ### 🎨 Datasets
 
@@ -81,19 +77,17 @@ You can download one of the demo data (.tif file) we achieved and put the low-SN
     # Simulated SMLM & Simulated Calcium imaging data at 30hz
     python -u train.py --datasets_folder noisy --n_epochs 20 --GPU 0,1 --train_datasets_size 6000  --patch_x 128 --patch_t 128
     
-    # All parameters:
+    # Key parameters:
     --datasets_folder: the folder containing your training data (one or more *.tif stacks)
     --n_epochs: the number of training epochs
     --GPU: specify the GPU(s) used for training. (e.g., '0', '0,1', '0,1,2')
-    --img_h, --img_w, --img_s: patch size in three dimensions
-    --gap_h, --gap_w, --gap_s: the spacing to extract training patches from the input stack(s)
-    
-    
-    --lr: learning rate, please use the default value
-    --normalize_factor: a constant for image normalization
-    --training_datasets_size: the number of patches you extracted for training
-    --select_img_num: the number of slices used for training.
+    --train_datasets_size: how many patches will be extracted for training
+    --patch_x, --patch_t: patch size in three dimensions (xy and t)
   ```
+
+In the vast majority of cases, good denosing models can be trained with these default parameters. **If not necessary, you do not need to modify these parameters**. You just need to change `--datasets_folder` and `--GPU`. 
+
+The folders containing `datasets` and `models` are in `./datasets` and `./pth`, respectively.
 
 
 ## 🏰 Model Zoo
