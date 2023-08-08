@@ -87,7 +87,7 @@ You can use your own data or download one of the demo data (.tif file), and put 
 
 In the vast majority of cases, good denosing models can be trained with these default parameters. **If not necessary, you do not need to modify these parameters**. You just need to change `--datasets_folder` or `--GPU`. 
 
-The folders containing `datasets` are in `./datasets`. The checkpoint (model) of each epoch will be saved in `./pth`.
+The folder containing training files are in `./datasets`. The checkpoint (model) of each epoch will be saved in `./pth`.
 
 
 ## 🏰 Model Zoo
@@ -116,7 +116,7 @@ Before inference, you should have trained your own model or downloaded our pre-t
 
 In the vast majority of cases, good denosing results can be obtained with these default parameters. **If not necessary, you do not need to modify these parameters**. You just need to change `--datasets_folder`, `--denoise_model` or `--GPU`. 
 
-The denoising results will be saved to `./results`. If there are multiple models in `--denoise_model`, only the last one will be used for denoising.
+The denoising results will be saved in `./results`. If there are multiple models in `--denoise_model`, only the last one will be used for denoising.
 
 ---
 ## &#x1F308; Results
