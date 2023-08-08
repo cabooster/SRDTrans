@@ -16,20 +16,19 @@ import random
 
 #############################################################################################################################################
 parser = argparse.ArgumentParser()
-parser.add_argument("--n_epochs", type=int, default=30, help="number of training epochs")
-parser.add_argument('--GPU', type=str, default='0', help="the index of GPU you will use for computation (e.g. '0', '0,1', '0,1,2')")
+parser.add_argument("--n_epochs", type=int, default=20, help="number of training epochs")
+parser.add_argument('--GPU', type=str, default='0,1', help="the index of GPU you will use for computation (e.g. '0', '0,1', '0,1,2')")
 
 parser.add_argument('--patch_x', type=int, default=128, help="patch size in x and y")
 parser.add_argument('--patch_t', type=int, default=128, help="patch size in x and t")
 parser.add_argument('--overlap_factor', type=float, default=0.5, help="the overlap factor between two adjacent patches")
 
-parser.add_argument('--train_datasets_size', type=int, default=6000, help='How many patches will be used for training.')
+parser.add_argument('--train_datasets_size', type=int, default=8000, help='How many patches will be used for training.')
 parser.add_argument('--datasets_path', type=str, default='datasets', help="dataset root path")
-
 
 parser.add_argument('--pth_path', type=str, default='pth', help="pth file root path")
 parser.add_argument('--datasets_folder', type=str, default='train', help="A folder containing files for training")
-parser.add_argument('--output_path', type=str, default='./results', help="output directory")
+parser.add_argument('--output_path', type=str, default='results', help="output directory")
 
 
 parser.add_argument('--lr', type=float, default=0.0001, help='initial learning rate')
