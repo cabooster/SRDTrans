@@ -63,7 +63,7 @@ Download the demo data(.tif file) and put it into SRDTrans/datasets/.
 
 ### 1. Prepare data  
 
-You can download one of the demo data (.tif file) we achieved and put the noisy data into datasets/noisy/.
+You can download one of the demo data (.tif file) we achieved and put the low-SNR data into datasets/noisy/.
 
 ### 🎨 Datasets
 
@@ -79,7 +79,20 @@ You can download one of the demo data (.tif file) we achieved and put the noisy 
 
   ```bash
     # Simulated SMLM & Simulated Calcium imaging data at 30hz
-    python -u train.py --datasets_folder noisy --n_epochs 20 --GPU 0,1 --train_datasets_size 6000  --patch_x 128 --patch_t 128 
+    python -u train.py --datasets_folder noisy --n_epochs 20 --GPU 0,1 --train_datasets_size 6000  --patch_x 128 --patch_t 128
+    
+    # All parameters:
+    --datasets_folder: the folder containing your training data (one or more *.tif stacks)
+    --n_epochs: the number of training epochs
+    --GPU: specify the GPU(s) used for training. (e.g., '0', '0,1', '0,1,2')
+    --img_h, --img_w, --img_s: patch size in three dimensions
+    --gap_h, --gap_w, --gap_s: the spacing to extract training patches from the input stack(s)
+    
+    
+    --lr: learning rate, please use the default value
+    --normalize_factor: a constant for image normalization
+    --training_datasets_size: the number of patches you extracted for training
+    --select_img_num: the number of slices used for training.
   ```
 
 
