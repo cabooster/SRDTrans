@@ -87,7 +87,7 @@ You can download one of the demo data (.tif file) we achieved and put the noisy 
 | Models                            | Modality  |Download                                  |
 | --------------------------------- |:--------- | :------------------------------------------- |
 | SRDTrans                 | Two-photon calcium imaging  |  [Zenodo](https://doi.org/10.5281/zenodo.7818031)                                              |
-| SRDTrans                 | Single-molecule localization microscopy     |    [Zenodo](https://doi.org/10.5281/zenodo.7817710)   
+| SRDTrans                 | Single-molecule localization microscopy (SMLM)     |    [Zenodo](https://doi.org/10.5281/zenodo.7817710)   
 
 ## ⚡ Inference
 ### 1. Prepare models
