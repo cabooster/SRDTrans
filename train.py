@@ -20,7 +20,7 @@ parser.add_argument("--n_epochs", type=int, default=30, help="number of training
 parser.add_argument('--GPU', type=str, default='0', help="the index of GPU you will use for computation (e.g. '0', '0,1', '0,1,2')")
 
 parser.add_argument('--patch_x', type=int, default=128, help="patch size in x and y")
-parser.add_argument('--patch_t', type=int, default=128, help="patch size in x and t")
+parser.add_argument('--patch_t', type=int, default=128, help="patch size in t")
 parser.add_argument('--overlap_factor', type=float, default=0.5, help="the overlap factor between two adjacent patches")
 
 parser.add_argument('--train_datasets_size', type=int, default=6000, help='How many patches will be used for training.')
