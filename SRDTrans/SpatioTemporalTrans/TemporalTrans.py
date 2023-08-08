@@ -14,7 +14,7 @@ class TemporalTransLayer(nn.Module):
     ):
         super().__init__()
         layers = []
-        print("trans depth:", depth)
+        # print("trans depth:", depth)
         for _ in range(depth):
             layers.extend(
                 [
