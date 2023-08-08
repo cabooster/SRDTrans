@@ -46,7 +46,7 @@ This repository is for SRDTrans introduced in the following paper:
     ```bash
     git clone https://github.com/cabooster/SRDTrans.git
     cd SRDTrans
-    rm datasets/clean/__init__.py datasets/noisy/__init__.py pth/__init__.py log/__init__.py
+    rm datasets/noisy/__init__.py pth/__init__.py results/__init__.py
     ```
 
 2. Create a virtual environment and install PyTorch and other dependencies. In the 3rd step, please select the correct Pytorch version that matches your CUDA version from [https://pytorch.org/get-started/previous-versions/](https://pytorch.org/get-started/previous-versions/). 
