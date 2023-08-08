@@ -11,12 +11,12 @@ def create_feature_maps(init_channel_number, number_of_fmaps):
 
 def save_yaml_train(opt, yaml_name):
     para = {'n_epochs':0,
-    'datasets_folder':0,
-    'datasets_path':0,
-    'output_dir':0,
-    'pth_path':0,
     'GPU':0,
     'batch_size':0,
+    'datasets_folder':0,
+    'datasets_path':0,
+    'output_path':0,
+    'pth_path':0,
     'patch_x':0,
     'patch_y':0,
     'patch_t':0,
@@ -26,17 +26,15 @@ def save_yaml_train(opt, yaml_name):
     'lr':0,
     'b1':0,
     'b2':0,
-    'fmap':0,
-    'scale_factor':0,
     'select_img_num':0,
     'train_datasets_size':0}
     para["n_epochs"] = opt.n_epochs
-    para["datasets_folder"] = opt.datasets_folder
-    para["datasets_path"] = opt.datasets_path
-    para["output_dir"] = opt.output_dir
-    para["pth_path"] = opt.pth_path
     para["GPU"] = opt.GPU
     para["batch_size"] = opt.batch_size
+    para["datasets_folder"] = opt.datasets_folder
+    para["datasets_path"] = opt.datasets_path
+    para["output_path"] = opt.output_path
+    para["pth_path"] = opt.pth_path
     para["patch_x"] = opt.patch_x
     para["patch_y"] = opt.patch_y
     para["patch_t"] = opt.patch_t
@@ -46,8 +44,6 @@ def save_yaml_train(opt, yaml_name):
     para["lr"] = opt.lr
     para["b1"] = opt.b1
     para["b2"] = opt.b2
-    para["fmap"] = opt.fmap
-    para["scale_factor"] = opt.scale_factor
     para["select_img_num"] = opt.select_img_num
     para["train_datasets_size"] = opt.train_datasets_size
     with open(yaml_name, 'w') as f:

@@ -19,27 +19,26 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--n_epochs", type=int, default=30, help="number of training epochs")
 parser.add_argument('--GPU', type=str, default='0', help="the index of GPU you will use for computation (e.g. '0', '0,1', '0,1,2')")
 
-parser.add_argument('--patch_x', type=int, default=128, help="the width of 3D patches (patch size in x)")
-parser.add_argument('--patch_t', type=int, default=128, help="the width of 3D patches (patch size in t)")
+parser.add_argument('--patch_x', type=int, default=128, help="patch size in x and y")
+parser.add_argument('--patch_t', type=int, default=128, help="patch size in x and t")
 parser.add_argument('--overlap_factor', type=float, default=0.5, help="the overlap factor between two adjacent patches")
 
-parser.add_argument('--batch_size', type=int, default=1, help="the batch_size)")
+parser.add_argument('--train_datasets_size', type=int, default=6000, help='How many patches will be used for training.')
+parser.add_argument('--datasets_path', type=str, default='datasets', help="dataset root path")
+
+
+parser.add_argument('--pth_path', type=str, default='pth', help="pth file root path")
+parser.add_argument('--datasets_folder', type=str, default='train', help="A folder containing files for training")
+parser.add_argument('--output_path', type=str, default='./results', help="output directory")
+
 
 parser.add_argument('--lr', type=float, default=0.0001, help='initial learning rate')
 parser.add_argument("--b1", type=float, default=0.5, help="Adam: bata1")
 parser.add_argument("--b2", type=float, default=0.999, help="Adam: bata2")
-parser.add_argument('--fmap', type=int, default=16, help='number of feature maps')
 
+parser.add_argument('--select_img_num', type=int, default=10000000000, help='How many frames will be used for training.')
+parser.add_argument('--test_datasize', type=int, default=10000000000, help='How many frames will be tested.')
 parser.add_argument('--scale_factor', type=int, default=1, help='the factor for image intensity scaling')
-parser.add_argument('--datasets_path', type=str, default='datasets', help="dataset root path")
-parser.add_argument('--datasets_folder', type=str, default='train', help="A folder containing files for training")
-parser.add_argument('--output_dir', type=str, default='./results', help="output directory")
-parser.add_argument('--pth_path', type=str, default='pth', help="pth file root path")
-parser.add_argument('--key_word', type=str, default='', help="pth file root path")
-
-parser.add_argument('--select_img_num', type=int, default=1000000, help='select the number of images used for training (how many slices)')
-parser.add_argument('--train_datasets_size', type=int, default=6000, help='datasets size for training (how many patches)')
-parser.add_argument('--test_datasize', type=int, default=200, help='datasets size for test (how many frames)')
 opt = parser.parse_args()
 os.environ["CUDA_VISIBLE_DEVICES"] = opt.GPU
 
@@ -53,20 +52,19 @@ from sampling import *
 # use isotropic patch size by default
 opt.patch_y = opt.patch_x   # the height of 3D patches (patch size in y)
 opt.patch_t = opt.patch_t   # the length of 3D patches (patch size in t)
-opt.gap_x = int(opt.patch_x*(1-opt.overlap_factor))   # patch gap in x
-opt.gap_y = int(opt.patch_y*(1-opt.overlap_factor))   # patch gap in y
-opt.gap_t = int(opt.patch_t*(1-opt.overlap_factor))  # patch gap in t
-# opt.ngpu = [int(ts) for ts in opt.GPU.split(',')]                  # check the number of GPU used for training
+opt.gap_x = int(opt.patch_x*(1-opt.overlap_factor))     # patch gap in x
+opt.gap_y = int(opt.patch_y*(1-opt.overlap_factor))     # patch gap in y
+opt.gap_t = int(opt.patch_t*(1-opt.overlap_factor))     # patch gap in t
 opt.ngpu = opt.GPU.count(',')+1
-opt.batch_size = opt.batch_size                          # By default, the batch size is equal to the number of GPU for minimal memory consumption
+opt.batch_size = opt.ngpu                               # By default, the batch size is equal to the number of GPU for minimal memory consumption
 print('\033[1;31mTraining parameters -----> \033[0m')
 print(opt)
 
 ########################################################################################################################
-if not os.path.exists(opt.output_dir): 
-    os.mkdir(opt.output_dir)
-current_time = opt.datasets_folder+'_'+opt.key_word+'_'+datetime.datetime.now().strftime("%Y%m%d%H%M")
-output_path = opt.output_dir + '/' + current_time
+if not os.path.exists(opt.output_path): 
+    os.mkdir(opt.output_path)
+current_time = opt.datasets_folder+'_'+datetime.datetime.now().strftime("%Y%m%d%H%M")
+output_path = opt.output_path + '/' + current_time
 pth_path = 'pth//'+ current_time
 print("ckp is saved in {}".format(pth_path))
 if not os.path.exists(pth_path): 
