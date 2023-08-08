@@ -81,9 +81,7 @@ You can download one of the demo data (.tif file) we achieved and put the noisy 
 
   ```bash
     # Simulated SMLM & Simulated Calcium imaging data at 30hz
-    python -u train.py --datasets_folder noisy --datasets_path datasets/ --n_epochs 30 --GPU 0 --train_datasets_size 6000  --patch_x 128 --patch_t 128 
-    # Simulated Calcium imaging data at 0.3hz
-    python -u train.py --datasets_folder noisy --datasets_path datasets/ --n_epochs 30 --GPU 0 --train_datasets_size 3000  --patch_x 128 --patch_t 128 
+    python -u train.py --datasets_folder noisy --n_epochs 20 --GPU 0,1 --train_datasets_size 8000  --patch_x 128 --patch_t 128 
   ```
 
 
