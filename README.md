@@ -35,7 +35,7 @@ This repository is for SRDTrans introduced in the following paper:
   - Python >= 3.6 
   - PyTorch >= 1.7 
     
-### Installation
+### Install
 
 1. Clone the repository and delete placeholder files.
 
