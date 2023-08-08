@@ -59,7 +59,7 @@ This repository is for SRDTrans introduced in the following paper:
 
 ### 1. Prepare the data  
 
-You can use your own data or download one of the demo data (.tif file). The raw low-SNR data should be put into `./datasets/noisy/`.
+You can use your own data or download one of the demo data below (.tif file). The raw low-SNR files should be put into `./datasets/noisy/`.
 
 ### 🎨 Datasets
 
