@@ -6,7 +6,7 @@
 
 <div align="center">
 
-✨ [**Method**](#-Method) **|** 🚩 [**Paper**](#-Paper) **|** 🔧 [**Install**](#-Install)  **|** 🎨 [**Datasets**](#-Datasets)  **|** 💻 [**Train**](#-Train) **|** 🏰 [**Model Zoo**](#-Model-Zoo)**|** ⚡ [**Usage**](#-Quick-Inference)**|** &#x1F308; [**Demo**](#-Demo)
+✨ [**Method**](#-Method) **|** 🚩 [**Paper**](#-Paper) **|** 🔧 [**Install**](#-Install)  **|** 🎨 [**Datasets**](#-Datasets)  **|** 💻 [**Train**](#-Train) **|** 🏰 [**Model Zoo**](#-Model-Zoo)**|** ⚡ [**Inference**](#-Inference)**|** &#x1F308; [**Results**](#-Results)
 
 
 </div>
@@ -79,7 +79,7 @@ You can download one of the demo data (.tif file) we achieved and put the noisy 
 
   ```bash
     # Simulated SMLM & Simulated Calcium imaging data at 30hz
-    python -u train.py --datasets_folder noisy --n_epochs 20 --GPU 0,1 --train_datasets_size 8000  --patch_x 128 --patch_t 128 
+    python -u train.py --datasets_folder noisy --n_epochs 20 --GPU 0,1 --train_datasets_size 6000  --patch_x 128 --patch_t 128 
   ```
 
 
@@ -89,24 +89,20 @@ You can download one of the demo data (.tif file) we achieved and put the noisy 
 | SRDTrans                 | Two-photon calcium imaging  |  [Zenodo](https://doi.org/10.5281/zenodo.7818031)                                              |
 | SRDTrans                 | Single-molecule localization microscopy     |    [Zenodo](https://doi.org/10.5281/zenodo.7817710)   
 
-## ⚡ Quick Inference
-1. Pre-trained model
+## ⚡ Inference
+### 1. Prepare models
 
-    Download the pre-trained model
+    Before inference, you should have trained your own model or downloaded our pre-trained model.
 
-2. Data preparation 
-
-    Please delete the "_\_init__.py" file used for occupancy. Then, you can download the demo data(.tif file) and put the clean data into datasets/clean/.
-
-3. Test
+### 2. Test models
 
   ```bash
-    # Simulated Calcium imaging dataat 0.3hz
-    python -u test.py --denoise_model cad_03hz --patch_x 128 --patch_t 128 --GPU 0 --ckp_idx [test_idx] --datasets_folder noisy --test_datasize 1000 --datasets_path datasets/ --clean_path datasets/clean/clean.tif
+    # Simulated calcium imaging data sampled at 0.3 Hz
+    python test.py --datasets_folder noisy --denoise_model cad_03hz --GPU 0,1 --patch_x 128 --patch_t 128
   ```
 
 ---
-## &#x1F308; Demo
+## &#x1F308; Results
 
   ### 1. SMLM denoising
   <p align="center">
