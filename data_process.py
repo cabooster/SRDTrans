@@ -168,18 +168,18 @@ def get_gap_t(args, img, stack_num):
     whole_x = img.shape[2]
     whole_y = img.shape[1]
     whole_t = img.shape[0]
-    print('whole_x -----> ',whole_x)
-    print('whole_y -----> ',whole_y)
-    print('whole_t -----> ',whole_t)
+    # print('whole_x -----> ',whole_x)
+    # print('whole_y -----> ',whole_y)
+    # print('whole_t -----> ',whole_t)
     w_num = math.floor((whole_x-args.patch_x)/args.gap_x)+1
     h_num = math.floor((whole_y-args.patch_y)/args.gap_y)+1
     s_num = math.ceil(args.train_datasets_size/w_num/h_num/stack_num)
-    print('w_num -----> ',w_num)
-    print('h_num -----> ',h_num)
-    print('s_num -----> ',s_num)
+    # print('w_num -----> ',w_num)
+    # print('h_num -----> ',h_num)
+    # print('s_num -----> ',s_num)
     gap_t = math.floor((whole_t-args.patch_t)/(s_num-1))
     #gap_t = math.floor((whole_t)/(s_num-1))
-    print('gap_t -----> ',gap_t)
+    # print('gap_t -----> ',gap_t)
     return gap_t
 
 
@@ -190,7 +190,7 @@ def train_preprocess_lessMemoryMulStacks(args):
     gap_y = args.gap_y
     gap_x = args.gap_x
     # gap_t2 = args.gap_t*2
-    im_folder = args.datasets_path + '//' + args.datasets_folder
+    im_folder = args.datasets_path + '/' + args.datasets_folder
 
     name_list = []
     coordinate_list={}
@@ -198,7 +198,7 @@ def train_preprocess_lessMemoryMulStacks(args):
     noise_im_all = []
     ind = 0
     print('\033[1;31mImage list for training -----> \033[0m')
-    print(im_folder)
+    print('All files are in -----> ', im_folder)
     stack_num = len(list(os.walk(im_folder, topdown=False))[-1][-1])
     print('Total stack number -----> ', stack_num)
 
@@ -212,9 +212,9 @@ def train_preprocess_lessMemoryMulStacks(args):
 
         assert gap_y >= 0 and gap_x >= 0 and gap_t >= 0, "train gat size is negative!"
         # args.gap_t = gap_t
-        print('gap_t -----> ', gap_t)
-        print('gap_x -----> ', gap_x)
-        print('gap_y -----> ', gap_y)
+        # print('gap_t -----> ', gap_t)
+        # print('gap_x -----> ', gap_x)
+        # print('gap_y -----> ', gap_y)
 
         noise_im = noise_im.astype(np.float32) / args.scale_factor  # no preprocessing
         noise_im_all.append(noise_im)

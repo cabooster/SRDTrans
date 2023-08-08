@@ -52,11 +52,11 @@ def save_yaml_train(opt, yaml_name):
 
 def save_yaml_test(opt, yaml_name):
     para = {
-        'n_epochs':0,
-        'datasets_folder':0,
         'datasets_path':0,
-        'output_dir':0,
+        'datasets_folder':0,
+        'denoise_model':0,
         'pth_path':0,
+        'output_path':0,
         'GPU':0,
         'batch_size':0,
         'patch_x':0,
@@ -65,19 +65,14 @@ def save_yaml_test(opt, yaml_name):
         'gap_x':0,
         'gap_y':0,
         'gap_t':0,
-        'lr':0,
-        'b1':0,
-        'b2':0,
-        'fmap':0,
-        'scale_factor':0,
-        'denoise_model':0,
-        'test_datasize':0
+        'test_datasize':0,
+        'scale_factor':0
     }
-    para["n_epochs"] = opt.n_epochs
-    para["datasets_folder"] = opt.datasets_folder
     para["datasets_path"] = opt.datasets_path
-    para["output_dir"] = opt.output_dir
+    para["datasets_folder"] = opt.datasets_folder
+    para["denoise_model"] = opt.denoise_model
     para["pth_path"] = opt.pth_path
+    para["output_path"] = opt.output_path
     para["GPU"] = opt.GPU
     para["batch_size"] = opt.batch_size
     para["patch_x"] = opt.patch_x
@@ -86,13 +81,8 @@ def save_yaml_test(opt, yaml_name):
     para["gap_x"] = opt.gap_x
     para["gap_y"] = opt.gap_y
     para["gap_t"] = opt.gap_t
-    para["lr"] = opt.lr
-    para["b1"] = opt.b1
-    para["b2"] = opt.b2
-    para["fmap"] = opt.fmap
-    para["scale_factor"] = opt.scale_factor
-    para["denoise_model"] = opt.denoise_model
     para["test_datasize"] = opt.test_datasize
+    para["scale_factor"] = opt.scale_factor
     with open(yaml_name, 'w') as f:
         data = yaml.dump(para, f)
 

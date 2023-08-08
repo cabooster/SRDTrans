@@ -1,4 +1,5 @@
 import os
+from pyexpat import model
 import torch
 import torch.nn as nn
 import argparse
@@ -14,33 +15,30 @@ from utils import save_yaml_test
 from skimage import io
 from tqdm import tqdm
 
+from SRDTrans import SRDTrans
+from data_process import test_preprocess_lessMemoryNoTail_chooseOne, testset, singlebatch_test_save, multibatch_test_save
+from utils import save_yaml_train
+from sampling import *
 
 #############################################################################################################################################
 parser = argparse.ArgumentParser()
-parser.add_argument("--n_epochs", type=int, default=30, help="number of training epochs")
-parser.add_argument('--GPU', type=str, default='0,1', help="the index of GPU you will use for computation")
+parser.add_argument('--GPU', type=str, default='0,1', help="the index of GPU used for computation (e.g., '0', '0,1', '0,1,2')")
 
-parser.add_argument('--patch_x', type=int, default=128,
-                    help="the width of 3D patches (patch size in x, also in y and t)")
-parser.add_argument('--patch_t', type=int, default=128, help="the width of 3D patches (patch size in t)")
+parser.add_argument('--denoise_model', type=str, default=None, help='A folder containing models to be tested')
+parser.add_argument('--datasets_folder', type=str, default='train', help="A folder containing all *.tif files for training")
+
+parser.add_argument('--patch_x', type=int, default=128, help="patch size in x and y")
+parser.add_argument('--patch_t', type=int, default=128, help="patch size in x and t")
 parser.add_argument('--overlap_factor', type=float, default=0.5, help="the overlap factor between two adjacent patches")
 
-parser.add_argument('--lr', type=float, default=0.00005, help='initial learning rate')
-parser.add_argument("--b1", type=float, default=0.5, help="Adam: bata1")
-parser.add_argument("--b2", type=float, default=0.999, help="Adam: bata2")
-parser.add_argument('--fmap', type=int, default=16, help='number of feature maps')
-
-parser.add_argument('--scale_factor', type=int, default=1, help='the factor for image intensity scaling')
-parser.add_argument('--datasets_path', type=str, default='datasets', help="dataset root path")
-parser.add_argument('--datasets_folder', type=str, default='test', help="A folder containing files to be tested")
-parser.add_argument('--output_dir', type=str, default='./results', help="output directory")
-parser.add_argument('--pth_path', type=str, default='pth', help="pth file root path")
 parser.add_argument('--ckp_idx', type=int, default=49, help="idx of checkpoint")
-parser.add_argument('--clean_path', type=str, help="clean path")
 
-parser.add_argument('--denoise_model', type=str, default='train_20210401_1712',
-                    help='A folder containing models to be tested')
+parser.add_argument('--datasets_path', type=str, default='./datasets', help="dataset root path")
+parser.add_argument('--pth_path', type=str, default='./pth', help="the root path to save models")
+parser.add_argument('--output_path', type=str, default='./results', help="output directory")
+
 parser.add_argument('--test_datasize', type=int, default=1000000, help='how many slices to be tested')
+parser.add_argument('--scale_factor', type=int, default=1, help='the factor for image intensity scaling')
 opt = parser.parse_args()
 
 # use isotropic patch size by default
@@ -52,7 +50,7 @@ opt.gap_t = int(opt.patch_t * (1 - opt.overlap_factor))
 opt.gap_x = int(opt.patch_x * (1 - opt.overlap_factor))
 opt.gap_y = int(opt.patch_y * (1 - opt.overlap_factor))
 opt.ngpu = str(opt.GPU).count(',') + 1
-opt.batch_size = opt.ngpu
+opt.batch_size = opt.ngpu                       # By default, the batch size is equal to the number of GPU for minimal memory consumption
 print('\033[1;31mParameters -----> \033[0m')
 print(opt)
 
@@ -65,42 +63,15 @@ model_list.sort()
 # print(model_list)
 
 
-from SRDTrans import SRDTrans
-from data_process import test_preprocess_lessMemoryNoTail_chooseOne, testset, singlebatch_test_save, multibatch_test_save
-from utils import save_yaml_train
-from sampling import *
-
-
-
-def cal_snr(noise_img, clean_img):
-    noise_signal = noise_img - clean_img
-    clean_signal = clean_img
-    noise_signal_2 = noise_signal ** 2
-    clean_signal_2 = clean_signal ** 2
-    sum1 = np.sum(clean_signal_2)
-    sum2 = np.sum(noise_signal_2)
-    snrr = 20 * math.log10(math.sqrt(sum1) / math.sqrt(sum2))
-    return snrr
-
-
-def cal_tif_snr(noisy_tif, clean_tif):
-    total_num = clean_tif.shape[0]
-    assert clean_tif.shape[0] == noisy_tif.shape[0], "length of clean and noisy don't match"
-    snr_list = []
-    print("computing...")
-    for idx in tqdm(range(total_num)):
-        snr = cal_snr(noisy_tif[idx], clean_tif[idx])
-        snr_list.append(snr)
-    print("final snr is:", np.mean(snr_list))
-
-
-
 # read paremeters from file
 for i in range(len(model_list)):
     aaa = model_list[i]
     if '.yaml' in aaa:
         yaml_name = model_list[i]
         del model_list[i]
+print('If there are multiple models, only the last one will be used for denoising.')
+model_list.sort()
+model_list[:-1] = []
 
 # get stacks for processing
 im_folder = opt.datasets_path + '//' + opt.datasets_folder
@@ -109,20 +80,20 @@ img_list = list(os.walk(im_folder, topdown=False))[-1][-1]
 img_list.sort()
 
 
-model_name_phrase = model_list[0].split("_")
-ckp_idx = "%02d" % (opt.ckp_idx)
-model_name_phrase[1] = ckp_idx
-model_list = ["_".join(model_name_phrase)]
+# model_name_phrase = model_list[0].split("_")
+# ckp_idx = "%02d" % (opt.ckp_idx)
+# model_name_phrase[1] = ckp_idx
+# model_list = ["_".join(model_name_phrase)]
 
         
-print('\033[1;31mStacks for processing -----> \033[0m')
+print('\033[1;31mStacks to be processed -----> \033[0m')
 print('Total stack umber -----> ', len(img_list))
-# for img in img_list: print(img)
+for img in img_list: print(img)
 
-if not os.path.exists(opt.output_dir):
-    os.mkdir(opt.output_dir)
+if not os.path.exists(opt.output_path):
+    os.mkdir(opt.output_path)
 current_time = datetime.datetime.now().strftime("%Y%m%d%H%M")
-output_path1 = opt.output_dir + '//' + 'DataFolderIs_' + opt.datasets_folder + '_' + current_time + '_ModelFolderIs_' + opt.denoise_model
+output_path1 = opt.output_path + '//' + 'DataFolderIs_' + opt.datasets_folder + '_' + current_time + '_ModelFolderIs_' + opt.denoise_model
 if not os.path.exists(output_path1):
     os.mkdir(output_path1)
 
@@ -146,14 +117,12 @@ denoise_generator = SRDTrans(
 )
 
 
-
 if torch.cuda.is_available():
-    print('\033[1;31mUsing {} GPU for testing -----> \033[0m'.format(torch.cuda.device_count()))
+    print('\033[1;31mUsing {} GPU(s) for testing -----> \033[0m'.format(torch.cuda.device_count()))
     denoise_generator = denoise_generator.cuda()
     denoise_generator = nn.DataParallel(denoise_generator, device_ids=range(opt.ngpu))
 cuda = True if torch.cuda.is_available() else False
 Tensor = torch.cuda.FloatTensor if cuda else torch.FloatTensor
-
 
 ##############################################################################################################################################################
 
@@ -180,7 +149,6 @@ def test():
             # test all stacks
             for N in range(len(img_list)):
                 name_list, noise_img, coordinate_list = test_preprocess_lessMemoryNoTail_chooseOne(opt, N)
-                # clean_img = tiff.imread(opt.clean_path).astype(np.float32)
                 prev_time = time.time()
                 time_start = time.time()
                 denoise_img = np.zeros(noise_img.shape)
@@ -265,12 +233,8 @@ def test():
                                                                                                                 '') + '_output.tif'
                     io.imsave(result_name, output_img, check_contrast=False)
                     print("test result saved in:", result_name)
-                    return output_img
+                    #return output_img
 
 
 if __name__ == "__main__":
-    test_tif = test()
-    clean_tif = tiff.imread(opt.clean_path)
-    test_tif = test_tif.astype(np.int32)
-    clean_tif = clean_tif.astype(np.int32)
-    cal_tif_snr(test_tif, clean_tif[:opt.test_datasize, :, :])
+    test()
