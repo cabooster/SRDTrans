@@ -28,7 +28,7 @@ parser.add_argument('--denoise_model', type=str, default=None, help='A folder co
 parser.add_argument('--datasets_folder', type=str, default='train', help="A folder containing all *.tif files for training")
 
 parser.add_argument('--patch_x', type=int, default=128, help="patch size in x and y")
-parser.add_argument('--patch_t', type=int, default=128, help="patch size in x and t")
+parser.add_argument('--patch_t', type=int, default=128, help="patch size in t")
 parser.add_argument('--overlap_factor', type=float, default=0.5, help="the overlap factor between two adjacent patches")
 
 parser.add_argument('--ckp_idx', type=int, default=49, help="idx of checkpoint")
