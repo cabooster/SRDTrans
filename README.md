@@ -4,8 +4,6 @@
   <img src="assets/SRDTrans.gif" width='600'>
 </p> 
 
-## <div align="center"><b><a href="README.md">SRDTrans</a></b></div>
-
 <div align="center">
 
 ✨ [**Method**](#-Method) **|** 🚩 [**Paper**](#-Paper) **|** 🔧 [**Install**](#-Install)  **|** 🎨 [**Data preparation**](#-Data-preparation)  **|** 💻 [**Train**](#-Train) **|** 🏰 [**Model Zoo**](#-Model-Zoo)**|** ⚡ [**Usage**](#-Quick-Inference)**|** &#x1F308; [**Demo**](#-Demo)
