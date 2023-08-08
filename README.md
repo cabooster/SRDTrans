@@ -85,9 +85,9 @@ You can use your own data or download one of the demo data (.tif file), and put 
     --patch_x, --patch_t: patch size in three dimensions (xy and t)
   ```
 
-In the vast majority of cases, good denosing models can be trained with these default parameters. **If not necessary, you do not need to modify these parameters**. You just need to change `--datasets_folder` and `--GPU`. 
+In the vast majority of cases, good denosing models can be trained with these default parameters. **If not necessary, you do not need to modify these parameters**. You just need to change `--datasets_folder` or `--GPU`. 
 
-The folders containing `datasets` and `models` are in `./datasets` and `./pth`, respectively.
+The folders containing `datasets` are in `./datasets`. The checkpoint (model) of each epoch will be saved in `./pth`.
 
 
 ## 🏰 Model Zoo
@@ -99,14 +99,24 @@ The folders containing `datasets` and `models` are in `./datasets` and `./pth`, 
 ## ⚡ Inference
 ### 1. Prepare models
 
-    Before inference, you should have trained your own model or downloaded our pre-trained model.
+Before inference, you should have trained your own model or downloaded our pre-trained model.
 
 ### 2. Test models
 
   ```bash
     # Simulated calcium imaging data sampled at 0.3 Hz
     python test.py --datasets_folder noisy --denoise_model cad_03hz --GPU 0,1 --patch_x 128 --patch_t 128
+
+    # Key parameters:
+    --datasets_folder: the folder containing the data to be processed (one or more *.tif stacks)
+    --denoise_mode: the folder containing pre-trained models.
+    --GPU: specify the GPU(s) used for inference. (e.g., '0', '0,1', '0,1,2')
+    --patch_x, --patch_t: patch size in three dimensions (xy and t)
   ```
+
+In the vast majority of cases, good denosing results can be obtained with these default parameters. **If not necessary, you do not need to modify these parameters**. You just need to change `--datasets_folder`, `--denoise_model` or `--GPU`. 
+
+The denoising results will be saved to `./results`. If there are multiple models in `--denoise_model`, only the last one will be used for denoising.
 
 ---
 ## &#x1F308; Results
