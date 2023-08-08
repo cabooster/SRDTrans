@@ -61,7 +61,7 @@ Download the demo data(.tif file) and put it into SRDTrans/datasets/.
 
 ## 💻 Train 
 
-1. Prepare data  
+### 1. Prepare data  
 
 You can download one of the demo data (.tif file) we achieved and put the noisy data into datasets/noisy/.
 
@@ -75,7 +75,7 @@ You can download one of the demo data (.tif file) we achieved and put the noisy 
 |SMLM                    | 43 nm|200 Hz|  23.6 G     |    [Zenodo](https://doi.org/10.5281/zenodo.7813185)    |      SRDTrans dataset: experimental imaging SMLM data|
 
 
-2. Start training
+### 2. Start training
 
   ```bash
     # Simulated SMLM & Simulated Calcium imaging data at 30hz
@@ -86,8 +86,8 @@ You can download one of the demo data (.tif file) we achieved and put the noisy 
 ## 🏰 Model Zoo
 | Models                            | Modality  |Download                                  |
 | --------------------------------- |:--------- | :------------------------------------------- |
-| SRDTrans                 | Calcium imaging  |  [Zenodo](https://doi.org/10.5281/zenodo.7818031)                                              |
-| SRDTrans                    | SMLM     |    [Zenodo](https://doi.org/10.5281/zenodo.7817710)   
+| SRDTrans                 | Two-photon calcium imaging  |  [Zenodo](https://doi.org/10.5281/zenodo.7818031)                                              |
+| SRDTrans                 | Single-molecule localization microscopy     |    [Zenodo](https://doi.org/10.5281/zenodo.7817710)   
 
 ## ⚡ Quick Inference
 1. Pre-trained model
