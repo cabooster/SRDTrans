@@ -55,7 +55,7 @@ This repository is for SRDTrans introduced in the following paper:
     $ conda create -n srdtrans python=3.6
     $ conda activate srdtrans
     $ pip install torch==1.8.0+cu111 torchvision==0.9.0+cu111 torchaudio==0.8.0 -f https://download.pytorch.org/whl/torch_stable.html
-    $ pip install tifffile einops timm scikit-image
+    $ pip install tifffile einops timm tqdm scikit-image
     ```
 
 
