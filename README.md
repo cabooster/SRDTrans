@@ -75,7 +75,7 @@ You can use your own data or download one of the demo data below (*.tif file). T
 
   ```bash
     # Simulated SMLM & Simulated Calcium imaging data at 30hz
-    python -u train.py --datasets_folder noisy --n_epochs 20 --GPU 0,1 --train_datasets_size 6000  --patch_x 128 --patch_t 128
+    python train.py --datasets_folder noisy --n_epochs 20 --GPU 0,1 --train_datasets_size 6000  --patch_x 128 --patch_t 128
     
     # Key parameters:
     --datasets_folder: the folder containing your training data (one or more *.tif stacks)
