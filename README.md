@@ -94,7 +94,7 @@ The folder containing training files are in `./datasets`. The checkpoint (model)
 | Models                            | Modality  |Download                                  |
 | --------------------------------- |:--------- | :------------------------------------------- |
 | SRDTrans                 | Two-photon calcium imaging  |  [Zenodo](https://doi.org/10.5281/zenodo.7818031)                                              |
-| SRDTrans                 | Single-molecule localization microscopy (SMLM)     |    [Zenodo](https://doi.org/10.5281/zenodo.7817710)   
+| SRDTrans                 | Single-molecule localization microscopy (SMLM)     |    [Zenodo](https://zenodo.org/record/8332545)  
 
 ## ⚡ Inference
 ### 1. Prepare models
