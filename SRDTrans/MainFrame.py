@@ -131,8 +131,7 @@ class SingleConv(nn.Sequential):
         super(SingleConv, self).__init__()
         self.add_module('Conv3d',
                         nn.Conv3d(in_channels, out_channels, kernel_size, padding=padding, stride=stride))
-        self.add_module('ReLU', nn.ReLU(inplace=True))
-        #self.add_module('LeakyReLU', nn.LeakyReLU(negative_slope=0.1, inplace=True))
+        self.add_module('LeakyReLU', nn.LeakyReLU(negative_slope=0.1, inplace=True))
 
 
 class DoubleConv(nn.Sequential):

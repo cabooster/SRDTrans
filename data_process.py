@@ -217,6 +217,8 @@ def train_preprocess_lessMemoryMulStacks(args):
         # print('gap_y -----> ', gap_y)
 
         noise_im = noise_im.astype(np.float32) / args.scale_factor  # no preprocessing
+        noise_im = noise_im-noise_im.mean()
+        
         noise_im_all.append(noise_im)
         
         whole_x = noise_im.shape[2]
@@ -332,9 +334,13 @@ def test_preprocess_lessMemoryNoTail_chooseOne (args, N):
     im_dir = im_folder+'//'+im_name
     noise_im = tiff.imread(im_dir)
     
+    input_data_type = noise_im.dtype
+    img_mean = noise_im.mean()
+    
     if noise_im.shape[0]>args.test_datasize:
         noise_im = noise_im[0:args.test_datasize,:,:]
     noise_im = noise_im.astype(np.float32)/args.scale_factor
+    noise_im = noise_im-img_mean
     # noise_im = (noise_im-noise_im.min()).astype(np.float32)/args.scale_factor
 
     whole_x = noise_im.shape[2]
@@ -431,4 +437,4 @@ def test_preprocess_lessMemoryNoTail_chooseOne (args, N):
                 # print(' single_coordinate -----> ',single_coordinate)
                 coordinate_list[patch_name] = single_coordinate
 
-    return name_list, noise_im, coordinate_list
+    return name_list, noise_im, coordinate_list, img_mean, input_data_type

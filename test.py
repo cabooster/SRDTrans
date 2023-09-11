@@ -31,8 +31,6 @@ parser.add_argument('--patch_x', type=int, default=128, help="patch size in x an
 parser.add_argument('--patch_t', type=int, default=128, help="patch size in t")
 parser.add_argument('--overlap_factor', type=float, default=0.5, help="the overlap factor between two adjacent patches")
 
-parser.add_argument('--ckp_idx', type=int, default=49, help="idx of checkpoint")
-
 parser.add_argument('--datasets_path', type=str, default='./datasets', help="dataset root path")
 parser.add_argument('--pth_path', type=str, default='./pth', help="the root path to save models")
 parser.add_argument('--output_path', type=str, default='./results', help="output directory")
@@ -56,11 +54,10 @@ print(opt)
 
 ########################################################################################################################
 os.environ["CUDA_VISIBLE_DEVICES"] = str(opt.GPU)
-model_path = opt.pth_path + '//' + opt.denoise_model
-# print(model_path)
+
+model_path = os.path.join(opt.pth_path, opt.denoise_model)
 model_list = list(os.walk(model_path, topdown=False))[-1][-1]
 model_list.sort()
-# print(model_list)
 
 
 # read paremeters from file
@@ -74,16 +71,10 @@ model_list.sort()
 model_list[:-1] = []
 
 # get stacks for processing
-im_folder = opt.datasets_path + '//' + opt.datasets_folder
+im_folder = os.path.join(opt.datasets_path, opt.datasets_folder)
+
 img_list = list(os.walk(im_folder, topdown=False))[-1][-1]
-# print("img_list", img_list)
 img_list.sort()
-
-
-# model_name_phrase = model_list[0].split("_")
-# ckp_idx = "%02d" % (opt.ckp_idx)
-# model_name_phrase[1] = ckp_idx
-# model_list = ["_".join(model_name_phrase)]
 
         
 print('\033[1;31mStacks to be processed -----> \033[0m')
@@ -93,11 +84,14 @@ for img in img_list: print(img)
 if not os.path.exists(opt.output_path):
     os.mkdir(opt.output_path)
 current_time = datetime.datetime.now().strftime("%Y%m%d%H%M")
-output_path1 = opt.output_path + '//' + 'DataFolderIs_' + opt.datasets_folder + '_' + current_time + '_ModelFolderIs_' + opt.denoise_model
+output_name = 'DataFolderIs_' + opt.datasets_folder + '_' + current_time + '_ModelFolderIs_' + opt.denoise_model
+output_path1 = os.path.join(opt.output_path, output_name)
+
 if not os.path.exists(output_path1):
     os.mkdir(output_path1)
 
-yaml_name = output_path1 + '//para.yaml'
+yaml_name = os.path.join(output_path1, 'para.yaml')
+
 save_yaml_test(opt, yaml_name)
 
 ##############################################################################################################################################################
@@ -112,7 +106,7 @@ denoise_generator = SRDTrans(
     window_size=7,
     num_transBlock=1,
     attn_dropout_rate=0.1,
-    f_maps=[16, 32, 64],
+    f_maps=[8, 16, 32, 64],
     input_dropout_rate=0
 )
 
@@ -132,12 +126,14 @@ def test():
         aaa = model_list[pth_index]
         if '.pth' in aaa:
             pth_name = model_list[pth_index]
-            output_path = output_path1 + '//' + pth_name.replace('.pth', '')
+            output_path = os.path.join(output_path1, pth_name.replace('.pth', ''))
+            
             if not os.path.exists(output_path):
                 os.mkdir(output_path)
 
             # load model
-            model_name = opt.pth_path + '//' + opt.denoise_model + '//' + pth_name
+            model_name = os.path.join(opt.pth_path, opt.denoise_model, pth_name)
+            
             if isinstance(denoise_generator, nn.DataParallel):
                 denoise_generator.module.load_state_dict(torch.load(model_name))  # parallel
                 denoise_generator.eval()
@@ -148,12 +144,12 @@ def test():
 
             # test all stacks
             for N in range(len(img_list)):
-                name_list, noise_img, coordinate_list = test_preprocess_lessMemoryNoTail_chooseOne(opt, N)
+                name_list, noise_img, coordinate_list, img_mean, input_data_type = test_preprocess_lessMemoryNoTail_chooseOne(opt, N)
                 prev_time = time.time()
                 time_start = time.time()
                 denoise_img = np.zeros(noise_img.shape)
-                result_name = output_path + '//' + img_list[N].replace('.tif', '') + '_' + pth_name.replace('.pth',
-                                                                                                            '') + '_output.tif'
+                result_file_name = img_list[N].replace('.tif', '') + '_' + pth_name.replace('.pth','') + '_output.tif'
+                result_name = os.path.join(output_path, result_file_name)
                 print(os.getcwd())
                 print(result_name)
 
@@ -210,30 +206,37 @@ def test():
                                 # print('shape of output_image -----> ',output_image.shape)
                                 aaaa, bbbb, stack_start_w, stack_end_w, stack_start_h, stack_end_h, stack_start_s, stack_end_s = multibatch_test_save(
                                     single_coordinate, id, output_image, raw_image)
+                                aaaa=aaaa+img_mean
+                                bbbb=bbbb+img_mean
                                 denoise_img[stack_start_s:stack_end_s, stack_start_h:stack_end_h,
                                 stack_start_w:stack_end_w] \
                                     = aaaa * (np.sum(bbbb) / np.sum(aaaa)) ** 0.5
                         else:
                             aaaa, bbbb, stack_start_w, stack_end_w, stack_start_h, stack_end_h, stack_start_s, stack_end_s = singlebatch_test_save(
                                 single_coordinate, output_image, raw_image)
+                            aaaa=aaaa+img_mean
+                            bbbb=bbbb+img_mean
                             denoise_img[stack_start_s:stack_end_s, stack_start_h:stack_end_h, stack_start_w:stack_end_w] \
                                 = aaaa * (np.sum(bbbb) / np.sum(aaaa)) ** 0.5
 
                     del noise_img
                     output_img = denoise_img.squeeze().astype(np.float32) * opt.scale_factor
                     del denoise_img
-                    # output_img = output_img1[0:raw_noise_img.shape[0],0:raw_noise_img.shape[1],0:raw_noise_img.shape[2]]
-                    output_img = output_img.astype('int16')
-                    # output_img = output_img - output_img.min()
-                    # output_img = output_img / output_img.max() * 65535
-                    # output_img = np.clip(output_img, 0, 65535).astype('uint16')
-                    # print(output_img.shape)
+                    output_img=np.clip(output_img, 0, 65535).astype('int32')
+                    # Save inference image
+                    if input_data_type == 'uint16':
+                        output_img=np.clip(output_img, 0, 65535)
+                        output_img = output_img.astype('uint16')
 
-                    result_name = output_path + '//' + img_list[N].replace('.tif', '') + '_' + pth_name.replace('.pth',
-                                                                                                                '') + '_output.tif'
+                    elif input_data_type == 'int16':
+                        output_img=np.clip(output_img, -32767, 32767)
+                        output_img = output_img.astype('int16')
+
+                    else:
+                        output_img = output_img.astype('int32')
+                            
                     io.imsave(result_name, output_img, check_contrast=False)
                     print("test result saved in:", result_name)
-                    #return output_img
 
 
 if __name__ == "__main__":

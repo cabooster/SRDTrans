@@ -63,15 +63,16 @@ print(opt)
 if not os.path.exists(opt.output_path): 
     os.mkdir(opt.output_path)
 current_time = opt.datasets_folder+'_'+datetime.datetime.now().strftime("%Y%m%d%H%M")
-output_path = opt.output_path + '/' + current_time
-pth_path = 'pth//'+ current_time
+
+output_path = os.path.join(opt.output_path, current_time)
+pth_path = os.path.join('pth', current_time)
 print("ckp is saved in {}".format(pth_path))
 if not os.path.exists(pth_path): 
     os.mkdir(pth_path)
 
 train_name_list, train_noise_img, train_coordinate_list, stack_index = train_preprocess_lessMemoryMulStacks(opt)
 
-yaml_name = pth_path+'//para.yaml'
+yaml_name = os.path.join(pth_path, 'para.yaml')
 save_yaml_train(opt, yaml_name)
 ########################################################################################################################
 
@@ -88,7 +89,7 @@ denoise_generator = SRDTrans(
     window_size=7,
     num_transBlock=1,
     attn_dropout_rate=0.1,
-    f_maps=[16, 32, 64],
+    f_maps=[8, 16, 32, 64],
     input_dropout_rate=0
 )
 
@@ -171,8 +172,8 @@ def train_epoch():
         ################################################################################################################
         # save model
         if (iteration + 1) % (len(trainloader)) == 0:
-            model_save_name = pth_path + '//E_' + str(epoch + 1).zfill(2) + '_Iter_' + str(iteration + 1).zfill(
-                4) + '.pth'
+            file_save_name = 'E_' + str(epoch + 1).zfill(2) + '_Iter_' + str(iteration + 1).zfill(4) + '.pth'
+            model_save_name = os.path.join(pth_path, file_save_name)
             if isinstance(denoise_generator, nn.DataParallel):
                 torch.save(denoise_generator.module.state_dict(), model_save_name)  # parallel
             else:
