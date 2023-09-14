@@ -82,7 +82,7 @@ You can use your own data or download one of the demo data below (*.tif file). T
     --n_epochs: the number of training epochs
     --GPU: specify the GPU(s) used for training. (e.g., '0', '0,1', '0,1,2')
     --train_datasets_size: how many patches will be extracted for training
-    --patch_x, --patch_t: patch size in three dimensions (xy and t)
+    --patch_x, --patch_t: patch size in three dimensions (xy and t), should be divisible by 8.
   ```
 
 In the vast majority of cases, good denosing models can be trained with these default parameters. **If not necessary, you do not need to modify these parameters**. You just need to change `--datasets_folder` or `--GPU`. 
