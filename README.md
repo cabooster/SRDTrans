@@ -142,7 +142,7 @@ The denoising results will be saved in `./results`. If there are multiple models
   </p>
 
   ### 4. Videos
-  You can click on the pictures to play the videos.
+  These are videos and you can click on the pictures to play them.
   1. SRDTrans enhances large-scale volumetric calcium imaging in the mouse cortex.
 
   [![IMAGE ALT TEXT](assets/v1_png.png)](https://youtu.be/0IUB8IRyIAM "Please click")
