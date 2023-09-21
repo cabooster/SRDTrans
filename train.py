@@ -122,8 +122,6 @@ def train_epoch():
     train_data = trainset(train_name_list, train_coordinate_list, train_noise_img, stack_index)
     trainloader = DataLoader(train_data, batch_size=opt.batch_size, shuffle=True, num_workers=4)
 
-    total_loss_list = []
-
     for iteration, noisy in enumerate(trainloader):
 
         noisy = noisy.cuda()
@@ -150,8 +148,6 @@ def train_epoch():
         time_left = datetime.timedelta(seconds=int(batches_left * (time.time() - prev_time)))
         prev_time = time.time()
 
-        total_loss_list.append(Total_loss.item())
-
         if iteration % 1 == 0:
             time_end = time.time()
             print(
@@ -161,7 +157,7 @@ def train_epoch():
                     opt.n_epochs,
                     iteration + 1,
                     len(trainloader),
-                    np.mean(total_loss_list),
+                    Total_loss.item(),
                     time_left,
                     time_end - time_start
                 ), end=' ')
