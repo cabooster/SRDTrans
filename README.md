@@ -85,9 +85,12 @@ You can use your own data or download one of the demo data below (*.tif file). T
     --patch_x, --patch_t: patch size in three dimensions (xy and t), should be divisible by 8.
   ```
 
-In the vast majority of cases, good denoising models can be trained with these default parameters. **If not necessary, you do not need to modify these parameters**. You just need to change `--datasets_folder` or `--GPU`. 
+* In the vast majority of cases, good denoising models can be trained with these default parameters. **If not necessary, you do not need to modify these parameters**. You just need to change `--datasets_folder` or `--GPU`. 
 
-The folders containing training files are in `./datasets`. The checkpoint (model) of each epoch will be saved in `./pth`.
+* The folders containing training files are in `./datasets`. The checkpoint (model) of each epoch will be saved in `./pth`.
+
+* **Hyperstacks** with multiple channels and even one channel should be split and saved into single-channel stacks. Otherwise, the following error  may occur (`ValueError: num_samples should be a positive integer value, but got num_samples=0`).
+
 
 
 ## 🏰 Model Zoo
