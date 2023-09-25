@@ -1,6 +1,7 @@
 import numpy as np
 import os
 import tifffile as tiff
+from skimage import io
 import random
 import math
 import torch
@@ -168,9 +169,9 @@ def get_gap_t(args, img, stack_num):
     whole_x = img.shape[2]
     whole_y = img.shape[1]
     whole_t = img.shape[0]
-    # print('whole_x -----> ',whole_x)
-    # print('whole_y -----> ',whole_y)
-    # print('whole_t -----> ',whole_t)
+    #print('whole_x -----> ',whole_x)
+    #print('whole_y -----> ',whole_y)
+    #print('whole_t -----> ',whole_t)
     w_num = math.floor((whole_x-args.patch_x)/args.gap_x)+1
     h_num = math.floor((whole_y-args.patch_y)/args.gap_y)+1
     s_num = math.ceil(args.train_datasets_size/w_num/h_num/stack_num)
@@ -190,7 +191,7 @@ def train_preprocess_lessMemoryMulStacks(args):
     gap_y = args.gap_y
     gap_x = args.gap_x
     # gap_t2 = args.gap_t*2
-    im_folder = args.datasets_path + '/' + args.datasets_folder
+    im_folder = os.path.join(args.datasets_path, args.datasets_folder)
 
     name_list = []
     coordinate_list={}
@@ -204,11 +205,12 @@ def train_preprocess_lessMemoryMulStacks(args):
 
     for im_name in list(os.walk(im_folder, topdown=False))[-1][-1]:
         print(im_name)
-        im_dir = im_folder+ '//' + im_name
+        im_dir = os.path.join(im_folder, im_name)
         noise_im = tiff.imread(im_dir)
         if noise_im.shape[0]>args.select_img_num:
             noise_im = noise_im[0:args.select_img_num,:,:]
         gap_t = get_gap_t(args, noise_im, stack_num)
+
 
         assert gap_y >= 0 and gap_x >= 0 and gap_t >= 0, "train gat size is negative!"
         # args.gap_t = gap_t
@@ -320,7 +322,7 @@ def test_preprocess_lessMemoryNoTail_chooseOne (args, N):
     cut_s = (patch_t2 - gap_t2)/2
 
     assert cut_w >=0 and cut_h >= 0 and cut_s >= 0, "test cut size is negative!"
-    im_folder = args.datasets_path+'//'+args.datasets_folder
+    im_folder = os.path.join(args.datasets_path, args.datasets_folder)
 
     name_list = []
     # train_raw = []
@@ -331,7 +333,7 @@ def test_preprocess_lessMemoryNoTail_chooseOne (args, N):
 
     im_name = img_list[N]
 
-    im_dir = im_folder+'//'+im_name
+    im_dir = os.path.join(im_folder, im_name)
     noise_im = tiff.imread(im_dir)
     
     input_data_type = noise_im.dtype
