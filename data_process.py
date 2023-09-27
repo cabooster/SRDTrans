@@ -203,10 +203,11 @@ def train_preprocess_lessMemoryMulStacks(args):
     stack_num = len(list(os.walk(im_folder, topdown=False))[-1][-1])
     print('Total stack number -----> ', stack_num)
 
+    print('Reading files...')    
     for im_name in list(os.walk(im_folder, topdown=False))[-1][-1]:
-        print(im_name)
         im_dir = os.path.join(im_folder, im_name)
         noise_im = tiff.imread(im_dir)
+        print(im_name, ' -----> the shape is', noise_im.shape)
         if noise_im.shape[0]>args.select_img_num:
             noise_im = noise_im[0:args.select_img_num,:,:]
         gap_t = get_gap_t(args, noise_im, stack_num)
