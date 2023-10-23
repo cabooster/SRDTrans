@@ -65,10 +65,10 @@ You can use your own data or download one of the demo data below (*.tif file). T
 
 | Data&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| Pixel&nbsp;size&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| Frame rate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| Size&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   |Download |         Description                       |
 | ---------------------------------------------- |:--------- | :---- | :---- | :---- | :------------------------------------------- |
-|Calcium imaging |1.02 μm|30 Hz| 29.2 G   |  [Zenodo](https://zenodo.org/record/8332084)     |   Simulated calcium imaging data with different SNRs      |
-|Calcium imaging| 1.02 μm|0.1 Hz, 0.3Hz, 1 Hz, 3 Hz, 10 Hz, and 30 Hz|5.8 G   |  [Zenodo](https://doi.org/10.5281/zenodo.7812545)     |    SRDTrans dataset: simulated calcium imaging data with different imaging speeds|
-|SMLM                    |30 nm |200 Hz|  48.0 G     |    [Zenodo](https://doi.org/10.5281/zenodo.7812590)    |    SRDTrans dataset: simulated SMLM data with different SNRs|
-|SMLM                    | 43 nm|200 Hz|  23.6 G     |    [Zenodo](https://doi.org/10.5281/zenodo.7813185)    |      SRDTrans dataset: experimentally obtained SMLM data|
+|Calcium imaging |1.02 μm|30 Hz| 29.2 G   |  <center> Zenodo repository <a href="https://doi.org/10.5281/zenodo.8332084"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.8332084.svg" alt="DOI"></a></center>    |   Simulated calcium imaging data with different SNRs      |
+|Calcium imaging| 1.02 μm|0.1 Hz, 0.3Hz, 1 Hz, 3 Hz, 10 Hz, and 30 Hz|5.8 G   |   <center> Zenodo repository <a href="https://doi.org/10.5281/zenodo.7812545"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.7812545.svg" alt="DOI"></a></center>      |    SRDTrans dataset: simulated calcium imaging data with different imaging speeds|
+|SMLM                    |30 nm |200 Hz|  48.0 G     |  <center> Zenodo repository <a href="https://doi.org/10.5281/zenodo.7812590"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.7812590.svg" alt="DOI"></a></center>    |    SRDTrans dataset: simulated SMLM data with different SNRs|
+|SMLM                    | 43 nm|200 Hz|  23.6 G     |   <center> Zenodo repository <a href="https://doi.org/10.5281/zenodo.7813185"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.7813185.svg" alt="DOI"></a></center>    |      SRDTrans dataset: experimentally obtained SMLM data|
 
 
 ### 2. Start training
