@@ -117,9 +117,11 @@ Before inference, you should have trained your own model or downloaded our pre-t
     --patch_x, --patch_t: patch size in three dimensions (xy and t), should be divisible by 8.
   ```
 
-In the vast majority of cases, good denoising results can be obtained with these default parameters. **If not necessary, you do not need to modify these parameters**. You just need to change `--datasets_folder`, `--denoise_model` or `--GPU`. 
+* In the vast majority of cases, good denoising results can be obtained with these default parameters. **If not necessary, you do not need to modify these parameters**. You just need to change `--datasets_folder`, `--denoise_model` or `--GPU`. 
 
-The denoising results will be saved in `./results`. If there are multiple models in `--denoise_model`, only the last one will be used for denoising.
+* For testing, **the patch size in t (`--patch_t`) should be consistent with that used for training**.
+
+* The denoising results will be saved in `./results`. If there are multiple models in `--denoise_model`, only the last one will be used for denoising.
 
 ---
 ## &#x1F308; Results
@@ -146,14 +148,15 @@ The denoising results will be saved in `./results`. If there are multiple models
 
   ### 4. Videos
   These are videos and you can click on the pictures to play them.
-  1. SRDTrans enhances large-scale volumetric calcium imaging in the mouse cortex.
+  
+  **1. SRDTrans enhances large-scale volumetric calcium imaging in the mouse cortex**.
 
   [![IMAGE ALT TEXT](assets/v1_png.png)](https://youtu.be/0IUB8IRyIAM "Please click")
 
-  2. The denoising performance of different methods on calcium imaging data sampled at 0.3 Hz.
+  **2. The denoising performance of different methods on calcium imaging data sampled at 0.3 Hz**.
 
   [![IMAGE ALT TEXT](assets/v2_png.png)](https://youtu.be/4p7y57EMY14 "Please click")
-  3. Comparing the performance of DeepCAD and SRDTrans on fast-moving objects. 
+  **3. Comparing the performance of DeepCAD and SRDTrans on fast-moving objects.** 
 
   [![IMAGE ALT TEXT](assets/v3_png.png)](https://youtu.be/UpTXmd35Xxs "Please click")
 
