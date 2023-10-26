@@ -96,8 +96,8 @@ You can use your own data or download one of the demo data below (*.tif file). T
 ## 🏰 Model Zoo
 | Models                            | Modality  |Download                                  |
 | --------------------------------- |:--------- | :------------------------------------------- |
-| SRDTrans                 | Two-photon calcium imaging  |  [Zenodo repository](https://doi.org/10.5281/zenodo.7818031)                                              |
-| SRDTrans                 | Single-molecule localization microscopy (SMLM)     |    [Zenodo repository](https://zenodo.org/record/8332545)  
+| SRDTrans                 | Two-photon calcium imaging  |  [Zenodo repository](https://doi.org/10.5281/zenodo.7818030)                                              |
+| SRDTrans                 | Single-molecule localization microscopy (SMLM)     |    [Zenodo repository](https://zenodo.org/record/8332544)  
 
 ## ⚡ Inference
 ### 1. Prepare models
