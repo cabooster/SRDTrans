@@ -26,7 +26,7 @@ We provide a spatial redundancy denoising transformer (SRDTrans) to remove noise
 
 This repository is for SRDTrans introduced in the following paper:
 
-[Xinyang Li, Xiaowan Hu, Xingye Chen, et al. "Spatial redundancy transformer for self-supervised fluorescence image denoising." bioRxiv (2023)](https://www.biorxiv.org/content/10.1101/2023.06.01.543361v2) 
+[Xinyang Li, Xiaowan Hu, Xingye Chen, et al. "Spatial redundancy transformer for self-supervised fluorescence image denoising." Nature Computational Science (2023)](https://www.nature.com/articles/s43588-023-00568-2) 
 
 
 ## 🔧 Install
