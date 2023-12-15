@@ -6,7 +6,7 @@
 
 <div align="center">
 
-✨ [**Method**](#-Method) **|** 🚩 [**Paper**](#-Paper) **|** 🔧 [**Install**](#-Install)  **|** 🎨 [**Datasets**](#-Datasets)  **|** 💻 [**Training**](#-Training) **|** 🏰 [**Model Zoo**](#-Model-Zoo)**|** ⚡ [**Inference**](#-Inference)**|** &#x1F308; [**Results**](#-Results)
+✨ [**Method**](#-Method) **|** 🚩 [**Paper**](#-Paper) **|** 🔧 [**Install**](#-Install)  **|** 🎨 [**Datasets**](#-Datasets)  **|** 💻 [**Training**](#-Training) **|** 🏰 [**Model Zoo**](#-Model-Zoo) **|** ⚡ [**Inference**](#-Inference) **|** &#x1F308; [**Results**](#-Results)
 
 </div>
 
