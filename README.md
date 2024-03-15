@@ -112,7 +112,7 @@ Before inference, you should have trained your own model or downloaded our pre-t
 
     # Key parameters:
     --datasets_folder: the folder containing the data to be processed (one or more *.tif stacks)
-    --denoise_model: the folder containing pre-trained models.
+    --denoise_model: the subfolder (under /pth) containing pre-trained models (e.g., ad_03hz).
     --GPU: specify the GPU(s) used for inference. (e.g., '0', '0,1', '0,1,2')
     --patch_x, --patch_t: patch size in three dimensions (xy and t), should be divisible by 8.
   ```
